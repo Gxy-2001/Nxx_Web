@@ -3,66 +3,73 @@
         <app-head></app-head>
         <app-body>
             <div style="min-height: 85vh;">
-            <el-tabs v-model="labelName" type="card" @tab-click="handleClick">
-                <el-tab-pane label="全部" name="0"></el-tab-pane>
-                <el-tab-pane label="数码" name="1"></el-tab-pane>
-                <el-tab-pane label="家电" name="2"></el-tab-pane>
-                <el-tab-pane label="户外" name="3"></el-tab-pane>
-                <el-tab-pane label="图书" name="4"></el-tab-pane>
-                <el-tab-pane label="其他" name="5"></el-tab-pane>
-            </el-tabs>
-            <div style="margin: 0 20px;">
-                <el-row :gutter="30">
-                    <el-col :span="6" v-for="(idle,index) in idleList">
-                        <div class="idle-card" @click="toDetails(idle)">
-                            <el-image
-                                    style="width: 100%; height: 160px"
-                                    :src="idle.imgUrl"
-                                    fit="contain">
-                                <div slot="error" class="image-slot">
-                                    <i class="el-icon-picture-outline">无图</i>
-                                </div>
-                            </el-image>
-                            <div class="idle-title">
-                                {{idle.idleName}}
-                            </div>
-                            <el-row style="margin: 5px 10px;">
-                                <el-col :span="12">
-                                    <div class="idle-prive">￥{{idle.idlePrice}}</div>
-                                </el-col>
-                                <el-col :span="12">
-                                    <div class="idle-place">{{idle.idlePlace}}</div>
-                                </el-col>
-                            </el-row>
-                            <div class="idle-time">{{idle.timeStr}}</div>
-                            <div class="user-info">
-                                <el-image
-                                        style="width: 30px; height: 30px"
-                                        :src="idle.user.avatar"
-                                        fit="contain">
-                                    <div slot="error" class="image-slot">
-                                        <i class="el-icon-picture-outline">无图</i>
-                                    </div>
-                                </el-image>
-                                <div class="user-nickname">{{idle.user.nickname}}</div>
-                            </div>
-                        </div>
-                    </el-col>
-                </el-row>
+
+              <div class="carousel">
+                <carousel></carousel>
+              </div>
+              <el-tabs v-model="labelName" type="card" @tab-click="handleClick">
+                  <el-tab-pane label="全部" name="0"></el-tab-pane>
+                  <el-tab-pane label="二手书" name="1"></el-tab-pane>
+                  <el-tab-pane label="数码" name="2"></el-tab-pane>
+                  <el-tab-pane label="零食" name="3"></el-tab-pane>
+                  <el-tab-pane label="活动票" name="4"></el-tab-pane>
+                  <el-tab-pane label="其他" name="5"></el-tab-pane>
+              </el-tabs>
+
+              <div style="margin: 0 20px;">
+                  <el-row :gutter="30">
+                      <el-col :span="6" v-for="(idle,index) in idleList" :key="index">
+                          <div class="idle-card" @click="toDetails(idle)">
+                              <el-image
+                                      style="width: 100%; height: 160px"
+                                      :src="idle.imgUrl"
+                                      fit="contain">
+                                  <div slot="error" class="image-slot">
+                                      <i class="el-icon-picture-outline">无图</i>
+                                  </div>
+                              </el-image>
+                              <div class="idle-title">
+                                  {{idle.idleName}}
+                              </div>
+                              <el-row style="margin: 5px 10px;">
+                                  <el-col :span="12">
+                                      <div class="idle-prive">￥{{idle.idlePrice}}</div>
+                                  </el-col>
+                                  <el-col :span="12">
+                                      <div class="idle-place">{{idle.idlePlace}}</div>
+                                  </el-col>
+                              </el-row>
+                              <div class="idle-time">{{idle.timeStr}}</div>
+                              <div class="user-info">
+                                  <el-image
+                                          style="width: 30px; height: 30px"
+                                          :src="idle.user.avatar"
+                                          fit="contain">
+                                      <div slot="error" class="image-slot">
+                                          <i class="el-icon-picture-outline">无图</i>
+                                      </div>
+                                  </el-image>
+                                  <div class="user-nickname">{{idle.user.nickname}}</div>
+                              </div>
+                          </div>
+                      </el-col>
+                  </el-row>
+              </div>
+
+              <div class="fenye">
+                  <el-pagination
+                          background
+                          @current-change="handleCurrentChange"
+                          :current-page.sync="currentPage"
+                          :page-size="8"
+                          layout="prev, pager, next, jumper"
+                          :total="totalItem">
+                  </el-pagination>
+              </div>
             </div>
-            <div class="fenye">
-                <el-pagination
-                        background
-                        @current-change="handleCurrentChange"
-                        :current-page.sync="currentPage"
-                        :page-size="8"
-                        layout="prev, pager, next, jumper"
-                        :total="totalItem">
-                </el-pagination>
-            </div>
-            </div>
-            <app-foot></app-foot>
         </app-body>
+      <app-foot></app-foot>
+
     </div>
 </template>
 
@@ -70,13 +77,15 @@
     import AppHead from '../common/AppHeader.vue';
     import AppBody from '../common/AppPageBody.vue'
     import AppFoot from '../common/AppFoot.vue'
+    import Carousel from '../common/Carousel.vue'
 
     export default {
         name: "index",
         components: {
             AppHead,
             AppBody,
-            AppFoot
+            AppFoot,
+            Carousel
         },
         data() {
             return {
@@ -179,7 +188,7 @@
         display: flex;
         justify-content: center;
         height: 60px;
-        align-items: center;
+      align-items: center;
     }
 
     .idle-title {
@@ -224,4 +233,12 @@
         height: 30px;
         display: flex;
     }
+
+    .carousel{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
 </style>

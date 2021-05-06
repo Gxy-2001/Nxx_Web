@@ -76,10 +76,11 @@
                         <el-tab-pane label="我下架的" name="2"></el-tab-pane>
                         <el-tab-pane label="我收藏的" name="3"></el-tab-pane>
                         <el-tab-pane label="我卖出的" name="4"></el-tab-pane>
-                        <el-tab-pane label="我买到的" name="5"></el-tab-pane>
+                      <el-tab-pane label="我买到的" name="5"></el-tab-pane>
+                      <el-tab-pane label="我的好友" name="6"></el-tab-pane>
                     </el-tabs>
                     <div class="idle-container-list">
-                        <div v-for="(item,index) in dataList[activeName-1]" class="idle-container-list-item">
+                        <div v-for="(item,index) in dataList[activeName-1] " :key="index"  class="idle-container-list-item">
                             <div class="idle-container-list-item-detile" @click="toDetails(activeName,item)">
                                 <el-image
                                         style="width: 100px; height: 100px;"
@@ -196,8 +197,9 @@
                     </el-table>
                 </div>
             </div>
-            <app-foot></app-foot>
         </app-body>
+      <app-foot></app-foot>
+
     </div>
 </template>
 

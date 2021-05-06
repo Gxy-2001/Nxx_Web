@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <app-head></app-head>
+    <app-body>
+
     <div class="sign-in-container">
         <el-card class="box-card">
             <div class="sign-in-body">
@@ -32,11 +36,20 @@
             </div>
         </el-card>
     </div>
+    </app-body>
+    <app-foot></app-foot>
+  </div>
 </template>
 
 <script>
+import AppHead from '../common/AppHeader.vue';
+import AppFoot from '../common/AppFoot.vue'
     export default {
         name: "sign-in",
+      components:{
+        AppHead,
+        AppFoot
+      },
         data(){
             return{
                 userPassword2:'',
@@ -49,7 +62,7 @@
         },
         methods:{
             toLogin(){
-                this.$router.replace({path: '/login'});
+              this.$router.replace({path: '/login'});
             },
             signIn(){
                 console.log(this.userInfo.nickname);

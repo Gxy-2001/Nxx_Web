@@ -6,7 +6,7 @@
                 <div style="margin: 0 20px;padding-top: 20px;">
                     <div style="text-align: center;color: #555555;padding: 20px;" v-if="idleList.length===0">暂无匹配的闲置物品</div>
                     <el-row :gutter="30">
-                        <el-col :span="6" v-for="(idle,index) in idleList">
+                        <el-col :span="6" v-for="(idle,index) in idleList" :key="index">
                             <div class="idle-card" @click="toDetails(idle)">
                                 <el-image
                                         style="width: 100%; height: 160px"
@@ -54,8 +54,8 @@
                     </el-pagination>
                 </div>
             </div>
-            <app-foot></app-foot>
         </app-body>
+      <app-foot></app-foot>
     </div>
 </template>
 

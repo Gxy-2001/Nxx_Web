@@ -69,8 +69,9 @@
                     <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===2" type="primary" plain @click="changeOrderStatus(3,orderInfo)">确认收货</el-button>
                 </div>
             </div>
-            <app-foot></app-foot>
         </app-body>
+      <app-foot></app-foot>
+
     </div>
 </template>
 

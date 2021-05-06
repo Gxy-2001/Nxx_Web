@@ -1,30 +1,54 @@
+<!--
+@modifier：FYL
+-->
 <template>
     <div class="header">
+<!--容器-->
         <div class="header-container">
+
+<!--文字logo部分-->
             <div class="app-name">
-                <router-link to="/">Nxx南小咸</router-link>
+                <router-link to="/">
+                  <logo>南小咸<span>&nbsp;&nbsp;校内二手交易平台</span></logo>
+                </router-link>
             </div>
+<!--搜索框-->
             <div class="search-container">
-                <el-input placeholder="搜闲置..." v-model="searchValue" @keyup.enter.native="searchIdle">
-                    <el-button slot="append" icon="el-icon-search" @click="searchIdle"></el-button>
-                </el-input>
+                  <el-input placeholder="搜闲置..." v-model="searchValue" @keyup.enter.native="searchIdle">
+                      <el-button slot="append" icon="el-icon-search" @click="searchIdle"></el-button>
+                  </el-input>
             </div>
-            <el-button type="primary" icon="el-icon-plus"  @click="toRelease">发布</el-button>
-            <el-button type="primary" icon="el-icon-chat-dot-round" @click="toMessage">消息</el-button>
-            <router-link v-if="!isLogin" class="user-name-text" to="/login">登录</router-link>
-            <el-dropdown trigger="click" v-else>
+<!--几个按钮-->
+            <div class="btns">
+              <el-button type="primary" icon="el-icon-plus"  @click="toRelease">发布闲置</el-button>
+              <el-button type="primary" icon="el-icon-chat-dot-round" @click="toMessage">消息</el-button>
+              <el-button type="primary" icon="el-icon-document" @click="toLogin">登录</el-button>
+              <el-button type="primary" icon="el-icon-tickets" @click="toSignin">注册</el-button>
+              <el-button type="primary" icon="el-icon-star-on" @click="toGithub">给个Star</el-button>
+            </div>
+<!--头像部分-->
+            <div class="log-avatar">
+              <!--<router-link v-if="!isLogin" class="user-name-text" to="/login">登录</router-link>-->
+              <el-button type="info" v-if="!isLogin" icon="el-icon-user" circle @click="toLogin"></el-button>
+<!--头像部分的下拉菜单-->
+              <el-dropdown trigger="click" v-else>
                 <div style="cursor:pointer;display: flex;align-items: center;">
-                    <div style="font-size: 16px;color: #409EFF;padding-right: 5px;">{{nicknameValue?nicknameValue:nickname}}</div>
-                    <el-avatar :src="avatarValue?avatarValue:avatar"></el-avatar>
+                  <div style="font-size: 16px;color: #409EFF;padding-right: 5px;">{{nicknameValue?nicknameValue:nickname}}</div>
+                  <el-avatar :src="avatarValue?avatarValue:avatar"></el-avatar>
                 </div>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item><div @click="toMe">个人中心</div></el-dropdown-item>
-                    <el-dropdown-item divided style="color: red;"><div @click="loginOut">退出登录</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe">个人中心</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe">更改背景</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe">好友</div></el-dropdown-item>
+                  <el-dropdown-item divided style="color: red;"><div @click="loginOut">退出登录</div></el-dropdown-item>
                 </el-dropdown-menu>
-            </el-dropdown>
+              </el-dropdown>
+            </div>
+
         </div>
     </div>
 </template>
+
 <script>
 
     export default {
@@ -34,7 +58,8 @@
             return {
                 searchValue: this.searchInput,
                 nickname:'登录',
-                avatar:'https://cdn.jsdelivr.net/gh/Gxy-2001/img/seec2/20210503143842.jpg',
+                //默认头像，还没有更改
+                avatar:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
                 isLogin:false
             };
         },
@@ -57,50 +82,63 @@
                 this.isLogin=true;
             }
         },
+        //方法：第一个是搜索框控制，第二个是退出登录，其他都是跳转；
         methods: {
-            searchIdle() {
+
+          searchIdle() {
                 if ('/search' !== this.$route.path) {
                     this.$router.push({path: '/search', query: {searchValue: this.searchValue}});
                 } else {
                     this.$router.replace({path: '/search', query: {searchValue: this.searchValue}});
                     this.$router.go(0);
                 }
+          },
+          loginOut(){
+            this.$api.logout().then(res=>{
+              if(res.status_code===1){
+                this.$globalData.userInfo={};
+                console.log("login out");
+                if ('/index' === this.$route.path) {
+                  this.$router.go(0);
+                }else {
+                  this.$router.push({path: '/index'});
+                }
+              }else {
+                this.$message.error('网络或系统异常，退出登录失败！');
+              }
+            });
 
-            },
-            toMe() {
-                if ('/me' !== this.$route.path) {
-                    this.$router.push({path: '/me'});
-                }
-            },
-            toMessage(){
-                if ('/message' !== this.$route.path) {
-                    this.$router.push({path: '/message'});
-                }
-            },
-            toRelease(){
-                if ('/release' !== this.$route.path) {
-                    this.$router.push({path: '/release'});
-                }
-            },
-            loginOut(){
-                this.$api.logout().then(res=>{
-                    if(res.status_code===1){
-                        this.$globalData.userInfo={};
-                        console.log("login out");
-                        if ('/index' === this.$route.path) {
-                            this.$router.go(0);
-                        }else {
-                            this.$router.push({path: '/index'});
-                        }
-                    }else {
-                        this.$message.error('网络或系统异常，退出登录失败！');
-                    }
-                });
-
+          },
+            //以下方法都是各种跳转
+          toMe() {
+            if ('/me' !== this.$route.path) {
+              this.$router.push({path: '/me'});
             }
+          },
+          toMessage(){
+            if ('/message' !== this.$route.path) {
+              this.$router.push({path: '/message'});
+            }
+          },
+          toRelease(){
+            if ('/release' !== this.$route.path) {
+              this.$router.push({path: '/release'});
+            }
+          },
+          toLogin(){
+            this.$router.replace({path: '/login'});
+          },
+          toGithub(){
+            window.location.href = "https://github.com/Gxy-2001/NXX";
+          },
+          toSignin(){
+            this.$router.replace({path: '/sign-in'});
+          },
         }
     };
 </script>
+
+<!--  CSS -->
 <style scoped>
     .header {
         position: fixed;
@@ -117,27 +155,53 @@
     }
 
     .header-container {
-        width: 1000px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
     }
 
-    .app-name a {
-        color: #409EFF;
-        font-size: 24px;
-        text-decoration: none;
+    /*header容器下的所有子div*/
+    /*.header-container div {*/
+    /*  flex: 1;*/
+    /*}*/
+
+
+    .app-name a{
+      color: #0072ea;
+      font-size: 24px;
+      text-decoration: none;
+    }
+    /*小字部分*/
+    span{
+      font-family: 楷体;
+      font-size: 6px;
     }
 
     .search-container {
-        width: 300px;
+      width: 25%;
+      border-radius: 5px;
     }
-    .user-name-text{
-        font-size: 16px;
-        font-weight: 600;
-        color: #409EFF;
-        cursor: pointer;
-        text-decoration: none;
+
+    .btns{
+      width: auto;
+      display: flex;
     }
+
+    .log-avatar{
+      display: flex;
+      align-items: center;
+    }
+
+    /*no use*/
+    /*.user-name-text{*/
+    /*  float: right;*/
+    /*    font-size: 16px;*/
+    /*    font-weight: 600;*/
+    /*    color: #409EFF;*/
+    /*    cursor: pointer;*/
+    /*    text-decoration: none;*/
+    /*}*/
+
 </style>

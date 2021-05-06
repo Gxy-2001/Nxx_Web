@@ -14,13 +14,14 @@
 
 <style scoped>
     .main-container{
-        margin-top: 67px;
+        margin-top: 80px;
         display: flex;
         justify-content: center;
     }
     .main-content{
-        width: 1000px;
+        width: 80%;
         background-color: #ffffff;
         min-height: 90vh;
+      border-radius: 10px;
     }
 </style>

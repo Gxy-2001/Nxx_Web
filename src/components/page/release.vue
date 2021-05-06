@@ -31,7 +31,7 @@
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                         <div>
-                            <div class="release-tip">闲置类别</div>
+                          <div class="release-tip">闲置类别</div>
                             <el-select  v-model="idleItemInfo.idleLabel" placeholder="请选择类别">
                                 <el-option
                                         v-for="item in options2"
@@ -41,8 +41,10 @@
                                 </el-option>
                             </el-select>
                         </div>
-                        <div style="width: 300px;">
-                            <el-input-number v-model="idleItemInfo.idlePrice" :precision="2" :step="10" :max="10000000">
+<!--                        <div style="width: 300px;">-->
+                        <div>
+                          <div class="release-tip">价格</div>
+                          <el-input-number v-model="idleItemInfo.idlePrice" :precision="2" :step="10" :max="10000000">
                                 <div slot="prepend">价格</div>
                             </el-input-number>
                         </div>
@@ -66,7 +68,7 @@
                         </el-upload>
                         <div class="picture-list">
                             <el-image style="width: 600px;margin-bottom: 2px;" fit="contain"
-                                      v-for="(img,index) in imgList" :src="img"
+                                      v-for="(img,index) in imgList" :src="img" :key="index"
                                       :preview-src-list="imgList"></el-image>
                         </div>
                         <el-dialog :visible.sync="imgDialogVisible">
@@ -78,8 +80,9 @@
                     </div>
                 </div>
             </div>
-            <app-foot></app-foot>
         </app-body>
+      <app-foot></app-foot>
+
     </div>
 </template>
 

@@ -1,36 +1,49 @@
 <template>
-    <div class="login-container">
+  <div>
+    <app-head></app-head>
+    <app-body>
+      <div class="login-container">
         <el-card class="box-card">
-            <div class="login-body">
-                <div class="login-title" @click="toIndex">二手交易平台</div>
-                <el-form ref="form" :model="userForm">
-                    <el-input placeholder="请输入手机号..." v-model="userForm.accountNumber" class="login-input">
-                        <template slot="prepend">
-                            <div class="el-icon-user-solid"></div>
-                        </template>
-                    </el-input>
-                    <el-input placeholder="请输入密码..." v-model="userForm.userPassword" class="login-input"
-                              @keyup.enter.native="login"  show-password>
-                        <template slot="prepend">
-                            <div class="el-icon-lock"></div>
-                        </template>
-                    </el-input>
-                    <div class="login-submit">
-                        <el-button type="primary" @click="login">登录</el-button>
-                    </div>
-                    <div class="other-submit">
-                        <router-link to="/sign-in" class="sign-in-text">注册</router-link>
-                        <router-link to="/login-admin" class="sign-in-text">后台登录</router-link>
-                    </div>
-                </el-form>
-            </div>
+          <div class="login-body">
+            <div class="login-title" @click="toIndex">二手交易平台</div>
+            <el-form ref="form" :model="userForm">
+              <el-input placeholder="请输入手机号..." v-model="userForm.accountNumber" class="login-input">
+                <template slot="prepend">
+                  <div class="el-icon-user-solid"></div>
+                </template>
+              </el-input>
+              <el-input placeholder="请输入密码..." v-model="userForm.userPassword" class="login-input"
+                        @keyup.enter.native="login"  show-password>
+                <template slot="prepend">
+                  <div class="el-icon-lock"></div>
+                </template>
+              </el-input>
+              <div class="login-submit">
+                <el-button type="primary" @click="login">登录</el-button>
+              </div>
+              <div class="other-submit">
+                <router-link to="/sign-in" class="sign-in-text">注册</router-link>
+                <router-link to="/login-admin" class="sign-in-text">后台登录</router-link>
+              </div>
+            </el-form>
+          </div>
         </el-card>
-    </div>
+      </div>
+    </app-body>
+    <app-foot></app-foot>
+  </div>
 </template>
 
 <script>
+import AppHead from '../common/AppHeader.vue';
+import AppFoot from '../common/AppFoot.vue'
+
     export default {
         name: "login",
+      components:{
+        AppHead,
+        AppFoot
+      },
         data() {
             return {
                 userForm: {
