@@ -1,24 +1,32 @@
-# nxxweb
+#### 1.第一次更新
 
-## Project setup
-```
-npm install
-```
+21-05-06 21:30
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+FYL
 
-### Compiles and minifies for production
-```
-npm run build
-```
+**修改内容：**
 
-### Lints and fixes files
-```
-npm run lint
-```
+首页、登录、注册等页面的修改；
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**待完成内容—涉及交互的内容**
+
+​	轮播图管理
+
+​	好友和私聊页面
+
+​	背景颜色修改
+
+#### 2.第二次更新
+
+21-05-07 12:33 FYL
+
+**更新内容：**
+
+思路很乱，更新的很少，都只是微调,没有实质进展
+
+**待完成内容：**
+
+轮播图管理
+
+好友和私聊功能
+

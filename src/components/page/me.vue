@@ -7,6 +7,7 @@
                 <div class="user-info-container">
                     <div class="user-info-details">
 
+                      <!--开发用的，实际用起来要改-->
                         <el-upload
                                 action="http://localhost:8080/file/"
                                 :on-success="fileHandleSuccess"

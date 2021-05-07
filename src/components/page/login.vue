@@ -44,6 +44,7 @@ import AppFoot from '../common/AppFoot.vue'
         AppHead,
         AppFoot
       },
+      //默认登录密码，实际使用时要改一改
         data() {
             return {
                 userForm: {

@@ -19,17 +19,18 @@ let sta = {
     isLogin: false,
     adminName: ''
 };
+
 Vue.prototype.$sta = sta;
 
 Vue.prototype.$globalData = globalData;
 
 Vue.config.productionTip = false;
-
+//ElementUI组件库
 Vue.use(ElementUI, {
     size: 'medium'
 });
 
-
+//未登录跳转
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title}`;
     // console.log(to.path,'userInfo:',Vue.prototype.$globalData.userInfo);

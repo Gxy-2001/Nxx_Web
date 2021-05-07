@@ -49,7 +49,8 @@
                     <el-main>
                         <IdleGoods v-if="mode == 1"></IdleGoods>
                         <orderList v-if="mode == 2"></orderList>
-                        <userList v-if="mode == 3"></userList>
+                      <userList v-if="mode == 3"></userList>
+                      <carouselList v-if="mode == 4"></carouselList>
                     </el-main>
                 </div>
             </el-container>
@@ -65,6 +66,8 @@
     import IdleGoods from '../common/IdleGoods.vue'
     import orderList from '../common/orderList.vue'
     import userList from '../common/userList.vue'
+    import carouselList from '../common/carouselList.vue'
+
     export default {
         name: "platform-admin",
         components: {
@@ -72,6 +75,7 @@
             IdleGoods,
             orderList,
             userList,
+          carouselList,
         },
         data(){
             return {

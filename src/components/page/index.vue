@@ -2,7 +2,7 @@
     <div>
         <app-head></app-head>
         <app-body>
-            <div style="min-height: 85vh;">
+            <div style="min-height: 180vh;" class="container">
 
               <div class="carousel">
                 <carousel></carousel>
@@ -81,12 +81,14 @@
 
     export default {
         name: "index",
+        //引用组件
         components: {
             AppHead,
             AppBody,
             AppFoot,
             Carousel
         },
+        //成员变量初始化
         data() {
             return {
                 labelName: '0',
@@ -95,9 +97,11 @@
                 totalItem:1
             };
         },
+        //进入网页后加载一次数据
         created() {
             this.findIdleTiem(1)
         },
+        //翻页的监听
         watch:{
             $route(to,from){
                 this.labelName=to.query.labelName;
@@ -109,7 +113,9 @@
                 this.findIdleTiem(val);
             }
         },
+
         methods: {
+            //加载商品信息
             findIdleTiem(page){
                 const loading = this.$loading({
                     lock: true,
@@ -160,15 +166,18 @@
                     })
                 }
             },
+            //切换商品种类
             handleClick(tab, event) {
                 // console.log(tab,event);
                 console.log(this.labelName);
                 this.$router.replace({query: {page: 1,labelName:this.labelName}});
             },
+            //
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
                 this.$router.replace({query: {page: val,labelName:this.labelName}});
             },
+            //查看详细商品信息
             toDetails(idle) {
                 this.$router.push({path: '/details', query: {id: idle.id}});
             }
@@ -235,10 +244,11 @@
     }
 
     .carousel{
+      height:662px;
       margin-top: 20px;
       margin-bottom: 20px;
-      margin-left: 40px;
-      margin-right: 40px;
+      margin-left: 80px;
+      margin-right: 80px;
     }
 
 </style>
