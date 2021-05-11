@@ -33,7 +33,8 @@
                         <el-image v-for="(imgUrl,i) in idleItemInfo.pictureList"
                                   style="width: 90%;margin-bottom: 2px;"
                                   :src="imgUrl"
-                                  fit="contain"></el-image>
+                                  fit="contain">
+                        </el-image>
                     </div>
                 </div>
 
@@ -143,7 +144,7 @@
                     res.data.pictureList=JSON.parse(res.data.pictureList);
                     this.idleItemInfo=res.data;
                     console.log(this.idleItemInfo);
-                    let userId=this.getCookie('shUserId');
+                    let userId=this.getCookie('UserId');
                     console.log('userid',userId)
                     if(userId == this.idleItemInfo.userId){
                         console.log('isMaster');
