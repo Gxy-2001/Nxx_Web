@@ -141,8 +141,8 @@ export default {
     };
   },
   created() {
-    this.userId = this.getCookie('shUserId');
-    console.log('userId', this.userId, this.getCookie('shUserId'));
+    this.userId = this.getCookie('UserId');
+    console.log('userId', this.userId, this.getCookie('UserId'));
     let orderId = this.$route.query.id;
     console.log(orderId);
     this.$api.getOrder({

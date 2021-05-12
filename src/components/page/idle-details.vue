@@ -61,10 +61,10 @@
                             <div class="message-container-list-left">
                                 <el-image
                                         style="width: 55px; height: 55px;border-radius: 5px;"
-                                        :src="mes.fromU.avatar"
+                                        :src="mes.from.avatar"
                                         fit="contain"></el-image>
                                 <div class="message-container-list-text">
-                                    <div class="message-nickname">{{mes.fromU.nickname}}
+                                    <div class="message-nickname">{{mes.from.nickname}}
                                         {{mes.toU.nickname?' @'+mes.toU.nickname+'：'+
                                         mes.toM.content.substring(0,10)+
                                         (mes.toM.content.length>10?'...':''):''}}</div>
@@ -145,7 +145,7 @@
                     this.idleItemInfo=res.data;
                     console.log(this.idleItemInfo);
                     let userId=this.getCookie('UserId');
-                    console.log('userid',userId)
+                    consFole.log('userid',userId)
                     if(userId == this.idleItemInfo.userId){
                         console.log('isMaster');
                         this.isMaster=true;
@@ -164,6 +164,7 @@
                     idleId:this.idleItemInfo.id
                 }).then(res=>{
                     console.log('getAllIdleMessage',res.data);
+                    //this.messageList=res.data;
                     if(res.status_code===1){
                         this.messageList=res.data;
                     }
@@ -196,7 +197,7 @@
                     scrollTop: $("#replyMessageLocation").offset().top-600
                 }, {duration: 500, easing: "swing"});
                 this.isReply=true;
-                this.replyData.toUserNickname=this.messageList[index].fromU.nickname;
+                this.replyData.toUserNickname=this.messageList[index].from.nickname;
                 this.replyData.toMessage=this.messageList[index].content.substring(0,10)+(this.messageList[index].content.length>10?'...':'');
                 this.toUser=this.messageList[index].userId;
                 this.toMessage=this.messageList[index].id;
