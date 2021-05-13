@@ -4,14 +4,14 @@
         <app-body>
             <div class='message-container'>
                 <div class='message-container-title'>我的消息</div>
-                <div v-for='(mes,index) in meslist' class='message-container-list' @click='toDetails(mes.idle.id)'>
+                <div v-for='(mes,index) in meslist' class='message-container-list'  @click='toDetails(mes.idle.id)'>
                     <div class='message-container-list-left'>
                         <el-image
                             style='width: 55px; height: 55px;border-radius: 5px;'
-                            :src='mes.fromU.avatar'
+                            :src='mes.from.avatar'
                             fit='cover'></el-image>
                         <div class='message-container-list-text'>
-                            <div class='message-nickname'>{{ mes.fromU.nickname }}</div>
+                            <div class='message-nickname'>{{ mes.from.nickname }}</div>
                             <div class='message-content'>{{ mes.content }}</div>
                             <div class='message-time'>{{ mes.createTime }}</div>
                         </div>
@@ -48,7 +48,7 @@ export default {
     },
     created() {
         this.$api.getAllMyMessage().then(res => {
-            console.log(res);
+            console.log("message",res);
             if (res.status_code === 1) {
                 for (let i = 0; i < res.data.length; i++) {
                     let imgList = JSON.parse(res.data[i].idle.pictureList);

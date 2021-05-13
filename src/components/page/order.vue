@@ -1,15 +1,18 @@
 <template>
-    <div>
-        <app-head></app-head>
-        <app-body>
-            <div class="order-page-container">
-                <div class="idle-info-container" @click="toDetails(orderInfo.idleItem.id)">
-                    <el-image
-                            style="width: 150px; height: 150px;"
-                            :src="orderInfo.idleItem.imgUrl"
-                            fit="cover"></el-image>
-                    <div class="idle-info-title">{{orderInfo.userId==userId?'买到的':'卖出的'}}：{{orderInfo.idleItem.idleName}}</div>
-                    <div class="idle-info-price">￥{{orderInfo.orderPrice}}</div>
+  <div>
+    <app-head></app-head>
+    <app-body>
+      <div class="order-page-container">
+        <div class="idle-info-container" @click="toDetails(orderInfo.idleItem.id)">
+          <el-image
+              style="width: 150px; height: 150px;"
+              :src="orderInfo.idleItem.imgUrl"
+              fit="cover"></el-image>
+          <div class="idle-info-title">
+            {{ orderInfo.userId == userId ? '买到的' : '卖出的' }}：{{ orderInfo.idleItem.idleName }}
+          </div>
+          <div class="idle-info-price">￥{{ orderInfo.orderPrice }}</div>
+
 
                 </div>
                 <div class="address-container" @click.stop="selectAddressDialog" :style="orderInfo.userId==userId&&orderInfo.orderStatus===0?'cursor: pointer;':''">
@@ -73,270 +76,271 @@
             <app-foot></app-foot>
         </app-body>
     </div>
+
 </template>
 
 <script>
-    import AppHead from '../common/AppHeader.vue';
-    import AppBody from '../common/AppPageBody.vue'
-    import AppFoot from '../common/AppFoot.vue'
+import AppHead from '../common/AppHeader.vue';
+import AppBody from '../common/AppPageBody.vue'
+import AppFoot from '../common/AppFoot.vue'
 
-    export default {
-        name: "order",
-        components: {
-            AppHead,
-            AppBody,
-            AppFoot
+export default {
+  name: "order",
+  components: {
+    AppHead,
+    AppBody,
+    AppFoot
+  },
+  data() {
+    return {
+      addressDialogVisible: false,
+      addressData: [],
+      orderStatus: ['待付款', '待发货', '待收货', '已完成', '已取消'],
+      orderInfo: {
+        createTime: "",
+        id: 0,
+        idleId: 0,
+        idleItem: {
+          id: '',
+          idleName: '',
+          idleDetails: '',
+          pictureList: [],
+          idlePrice: 0,
+          idlePlace: '',
+          idleLabel: '',
+          idleStatus: -1,
+          userId: '',
         },
-        data() {
-            return {
-                addressDialogVisible:false,
-                addressData: [],
-                orderStatus: ['待付款', '待发货', '待收货', '已完成', '已取消'],
-                orderInfo: {
-                    createTime: "",
-                    id: 0,
-                    idleId: 0,
-                    idleItem: {
-                        id: '',
-                        idleName: '',
-                        idleDetails: '',
-                        pictureList: [],
-                        idlePrice: 0,
-                        idlePlace: '',
-                        idleLabel: '',
-                        idleStatus: -1,
-                        userId: '',
-                    },
-                    orderNumber: "",
-                    orderPrice: 0,
-                    orderStatus: 0,
-                    paymentStatus: 0,
-                    paymentTime: "",
-                    paymentWay: "",
-                    userId: 0
-                },
-                addressInfo: {
-                    id:'',
-                    update:false,
-                    consigneeName: '',
-                    consigneePhone: '',
-                    detailAddress: ''
-                },
-                userId:''
-            };
-        },
-        created() {
-            this.userId=this.getCookie('shUserId');
-            console.log('userId',this.userId,this.getCookie('shUserId'));
-            let orderId = this.$route.query.id;
-            console.log(orderId);
-            this.$api.getOrder({
-                id: orderId
-            }).then(res => {
-                console.log(res);
-                if (res.status_code === 1) {
-                    if (res.data.idleItem) {
-                        let imgList = JSON.parse(res.data.idleItem.pictureList);
-                        if (imgList.length > 0) {
-                            res.data.idleItem.imgUrl = imgList[0];
-                        } else {
-                            res.data.idleItem.imgUrl = '';
-                        }
-                    } else {
-                        res.data.idleItem = {
-                            idleName: '',
-                            imgUrl: ''
-                        }
-                    }
-                    this.orderInfo = res.data;
-                    this.$api.getOrderAddress({
-                        orderId:this.orderInfo.id
-                    }).then(res=>{
-                        if(res.data){
-                            this.addressInfo= res.data;
-                            this.addressInfo.update=true;
-                        }else{
-                            this.getAddressData();
-                        }
-                    })
-                }
-            })
-        },
-        methods: {
-            getCookie(cname){
-                var name = cname + "=";
-                var ca = document.cookie.split(';');
-                for(var i=0; i<ca.length; i++)
-                {
-                    var c = ca[i].trim();
-                    if (c.indexOf(name)===0) return c.substring(name.length,c.length);
-                }
-                return "0";
-            },
-            toDetails(id) {
-                this.$router.replace({path: 'details', query: {id: id}});
-            },
-            selectAddressDialog(){
-                if(this.orderInfo.userId==this.userId&&this.orderInfo.orderStatus===0){
-                    this.addressDialogVisible=true;
-                    if(this.addressData.length===0){
-                        this.getAddressData();
-                    }
-                }
-            },
-            getAddressData(){
-                this.$api.getAddress().then(res => {
-                    if (res.status_code === 1) {
-                        let data = res.data;
-                        for (let i = 0; i < data.length; i++) {
-                            data[i].detailAddressText = data[i].provinceName + data[i].cityName + data[i].regionName + data[i].detailAddress;
-                        }
-                        console.log(data);
-                        this.addressData = data;
-                        if(!this.addressInfo.update){
-                            for(let i=0;i<data.length;i++){
-                                if(data[i].defaultFlag){
-                                    this.selectAddress(i,data[i]);
-                                }
-                            }
-                        }
-                    }
-                })
-            },
-            selectAddress(i,item){
-                this.addressDialogVisible=false;
-                console.log(item,this.addressInfo);
-                this.addressInfo.consigneeName=item.consigneeName;
-                this.addressInfo.consigneePhone=item.consigneePhone;
-                this.addressInfo.detailAddress=item.detailAddressText;
-                if(this.addressInfo.update){
-                    this.$api.updateOrderAddress({
-                        id:this.addressInfo.id,
-                        consigneeName:item.consigneeName,
-                        consigneePhone:item.consigneePhone,
-                        detailAddress:item.detailAddressText
-                    })
-                }else{
-                    this.$api.addOrderAddress({
-                        orderId:this.orderInfo.id,
-                        consigneeName:item.consigneeName,
-                        consigneePhone:item.consigneePhone,
-                        detailAddress:item.detailAddressText
-                    }).then(res=>{
-                        if(res.status_code===1){
-                            this.addressInfo.update=true;
-                            this.addressInfo.id=res.data.id;
-                        }else {
-                            this.$message.error(res.msg)
-                        }
-                    })
-                }
-
-            },
-            changeOrderStatus(orderStatus, orderInfo) {
-                if (orderStatus === 1) {
-                    console.log('zhifu');
-                    if(!this.addressInfo.detailAddress){
-                        this.$message.error('请选择地址！')
-                    }else{
-                        this.$confirm('模拟支付宝支付，是否确认支付', '支付订单', {
-                            confirmButtonText: '支付',
-                            cancelButtonText: '取消',
-                            type: 'warning'
-                        }).then(() => {
-                            this.$api.updateOrder({
-                                id: orderInfo.id,
-                                orderStatus: orderStatus,
-                                paymentStatus: 1,
-                                paymentWay: '支付宝',
-                            }).then(res => {
-                                if (res.status_code === 1) {
-                                    this.$message({
-                                        message: '支付成功！',
-                                        type: 'success'
-                                    });
-                                    this.orderInfo.orderStatus = orderStatus;
-                                    this.orderInfo.paymentStatus = 1;
-                                    this.orderInfo.paymentWay = '支付宝';
-                                    this.orderInfo.paymentTime = res.data.paymentTime;
-                                }
-                            })
-                        }).catch(() => {
-                        });
-                    }
-                } else {
-                    this.$api.updateOrder({
-                        id: orderInfo.id,
-                        orderStatus: orderStatus,
-                    }).then(res => {
-                        if (res.status_code === 1) {
-                            this.$message({
-                                message: '操作成功！',
-                                type: 'success'
-                            });
-                            this.orderInfo.orderStatus = orderStatus;
-                        }
-                    })
-                }
-            },
+        orderNumber: "",
+        orderPrice: 0,
+        orderStatus: 0,
+        paymentStatus: 0,
+        paymentTime: "",
+        paymentWay: "",
+        userId: 0
+      },
+      addressInfo: {
+        id: '',
+        update: false,
+        consigneeName: '',
+        consigneePhone: '',
+        detailAddress: ''
+      },
+      userId: ''
+    };
+  },
+  created() {
+    this.userId = this.getCookie('UserId');
+    console.log('userId', this.userId, this.getCookie('UserId'));
+    let orderId = this.$route.query.id;
+    console.log(orderId);
+    this.$api.getOrder({
+      id: orderId
+    }).then(res => {
+      console.log(res);
+      if (res.status_code === 1) {
+        if (res.data.idleItem) {
+          let imgList = JSON.parse(res.data.idleItem.pictureList);
+          if (imgList.length > 0) {
+            res.data.idleItem.imgUrl = imgList[0];
+          } else {
+            res.data.idleItem.imgUrl = '';
+          }
+        } else {
+          res.data.idleItem = {
+            idleName: '',
+            imgUrl: ''
+          }
         }
+        this.orderInfo = res.data;
+        this.$api.getOrderAddress({
+          orderId: this.orderInfo.id
+        }).then(res => {
+          if (res.data) {
+            this.addressInfo = res.data;
+            this.addressInfo.update = true;
+          } else {
+            this.getAddressData();
+          }
+        })
+      }
+    })
+  },
+  methods: {
+    getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+      }
+      return "0";
+    },
+    toDetails(id) {
+      this.$router.replace({path: 'details', query: {id: id}});
+    },
+    selectAddressDialog() {
+      if (this.orderInfo.userId == this.userId && this.orderInfo.orderStatus === 0) {
+        this.addressDialogVisible = true;
+        if (this.addressData.length === 0) {
+          this.getAddressData();
+        }
+      }
+    },
+    getAddressData() {
+      this.$api.getAddress().then(res => {
+        if (res.status_code === 1) {
+          let data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            data[i].detailAddressText = data[i].provinceName + data[i].cityName + data[i].regionName + data[i].detailAddress;
+          }
+          console.log(data);
+          this.addressData = data;
+          if (!this.addressInfo.update) {
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].defaultFlag) {
+                this.selectAddress(i, data[i]);
+              }
+            }
+          }
+        }
+      })
+    },
+    selectAddress(i, item) {
+      this.addressDialogVisible = false;
+      console.log(item, this.addressInfo);
+      this.addressInfo.consigneeName = item.consigneeName;
+      this.addressInfo.consigneePhone = item.consigneePhone;
+      this.addressInfo.detailAddress = item.detailAddressText;
+      if (this.addressInfo.update) {
+        this.$api.updateOrderAddress({
+          id: this.addressInfo.id,
+          consigneeName: item.consigneeName,
+          consigneePhone: item.consigneePhone,
+          detailAddress: item.detailAddressText
+        })
+      } else {
+        this.$api.addOrderAddress({
+          orderId: this.orderInfo.id,
+          consigneeName: item.consigneeName,
+          consigneePhone: item.consigneePhone,
+          detailAddress: item.detailAddressText
+        }).then(res => {
+          if (res.status_code === 1) {
+            this.addressInfo.update = true;
+            this.addressInfo.id = res.data.id;
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+      }
 
-    }
+    },
+    changeOrderStatus(orderStatus, orderInfo) {
+      if (orderStatus === 1) {
+        console.log('zhifu');
+        if (!this.addressInfo.detailAddress) {
+          this.$message.error('请选择地址！')
+        } else {
+          this.$confirm('模拟支付宝支付，是否确认支付', '支付订单', {
+            confirmButtonText: '支付',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$api.updateOrder({
+              id: orderInfo.id,
+              orderStatus: orderStatus,
+              paymentStatus: 1,
+              paymentWay: '支付宝',
+            }).then(res => {
+              if (res.status_code === 1) {
+                this.$message({
+                  message: '支付成功！',
+                  type: 'success'
+                });
+                this.orderInfo.orderStatus = orderStatus;
+                this.orderInfo.paymentStatus = 1;
+                this.orderInfo.paymentWay = '支付宝';
+                this.orderInfo.paymentTime = res.data.paymentTime;
+              }
+            })
+          }).catch(() => {
+          });
+        }
+      } else {
+        this.$api.updateOrder({
+          id: orderInfo.id,
+          orderStatus: orderStatus,
+        }).then(res => {
+          if (res.status_code === 1) {
+            this.$message({
+              message: '操作成功！',
+              type: 'success'
+            });
+            this.orderInfo.orderStatus = orderStatus;
+          }
+        })
+      }
+    },
+  }
+
+}
 </script>
 
 <style scoped>
-    .order-page-container {
-        min-height: 85vh;
-    }
+.order-page-container {
+  min-height: 85vh;
+}
 
-    .idle-info-container {
-        width: 100%;
-        display: flex;
-        border-bottom: 20px solid #f6f6f6;
-        padding: 20px;
-        cursor: pointer;
-    }
+.idle-info-container {
+  width: 100%;
+  display: flex;
+  border-bottom: 20px solid #f6f6f6;
+  padding: 20px;
+  cursor: pointer;
+}
 
-    .idle-info-title {
-        font-size: 18px;
-        font-weight: 600;
-        max-width: 750px;
-        margin-left: 10px;
-    }
+.idle-info-title {
+  font-size: 18px;
+  font-weight: 600;
+  max-width: 750px;
+  margin-left: 10px;
+}
 
-    .idle-info-price {
-        font-size: 18px;
-        color: red;
-        margin-left: 10px;
-    }
+.idle-info-price {
+  font-size: 18px;
+  color: red;
+  margin-left: 10px;
+}
 
-    .address-container {
-        min-height: 60px;
-        padding: 20px;
-        border-bottom: 20px solid #f6f6f6;
+.address-container {
+  min-height: 60px;
+  padding: 20px;
+  border-bottom: 20px solid #f6f6f6;
 
-    }
+}
 
-    .address-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
+.address-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
 
-    .address-detials {
-        font-size: 16px;
-        color: #444444;
-    }
+.address-detials {
+  font-size: 16px;
+  color: #444444;
+}
 
-    .order-info-container {
-        padding: 20px;
-    }
+.order-info-container {
+  padding: 20px;
+}
 
-    .order-info-item {
-        margin: 10px 0;
-        font-size: 14px;
-        color: #444444;
-    }
+.order-info-item {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #444444;
+}
+
 
     .menu {
         margin-left: 20px;
@@ -346,3 +350,4 @@
     /*  margin-top: 20px;*/
     /*}*/
 </style>
+

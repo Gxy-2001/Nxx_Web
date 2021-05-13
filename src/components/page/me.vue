@@ -8,7 +8,7 @@
                     <div class="user-info-details">
 
                         <el-upload
-                                action="http://localhost:8080/file/"
+                                action="http://localhost:8090/file/"
                                 :on-success="fileHandleSuccess"
                                 :file-list="imgFileList"
                                 accept="image/*"
@@ -345,7 +345,7 @@
                             res.data[i].imgUrl = pictureList.length > 0 ? pictureList[0] : '';
                             if (res.data[i].idleStatus === 1) {
                                 this.dataList[0].push(res.data[i]);
-                            } else if (res.data[i].idleStatus === 2) {
+                            } else if (res.data[i].idleStatus === 3) {
                                 this.dataList[1].push(res.data[i]);
                             }
                         }
@@ -478,7 +478,7 @@
                     if(activeName==='1'){
                         this.$api.updateIdleItem({
                             id:item.id,
-                            idleStatus:2
+                            idleStatus:3
                         }).then(res=>{
                             console.log(res);
                             if(res.status_code===1){

@@ -61,7 +61,7 @@
                     <div class="release-idle-container-picture">
                         <div class="release-idle-container-picture-title">上传闲置照片</div>
                         <el-upload
-                                action="http://localhost:8080/file/"
+                                action="http://localhost:8090/file"
                                 :on-preview="fileHandlePreview"
                                 :on-remove="fileHandleRemove"
                                 :on-success="fileHandleSuccess"
@@ -73,12 +73,17 @@
                                 multiple>
                             <i class="el-icon-upload"></i>
                             <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
+                          <div class="el-upload__tip" slot="tip">暂时只能上传jpg文件</div>
                         </el-upload>
-                        <div class="picture-list">
-                            <el-image style="width: 600px;margin-bottom: 2px;" fit="contain"
-                                      v-for="(img,index) in imgList" :src="img"
-                                      :preview-src-list="imgList"></el-image>
-                        </div>
+<!--                        <div class="picture-list">-->
+<!--                            <el-image style="width: 600px;margin-bottom: 2px;"-->
+<!--                                      fit="contain"-->
+<!--                                      v-for="(img) in imgList"-->
+<!--                                      :src="img"-->
+<!--                                      :preview-src-list="imgList">-->
+
+<!--                            </el-image>-->
+<!--                        </div>-->
                         <el-dialog :visible.sync="imgDialogVisible">
                             <img width="100%" :src="dialogImageUrl" alt="">
                         </el-dialog>
@@ -160,6 +165,10 @@
                 this.imgDialogVisible=true;
             },
             fileHandleSuccess(response, file, fileList){
+                //response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.length - 17))
+              console.log("fileHandleSuccess",response.data)
+              console.log("lastIndex",response.data.substr(response.data.lastIndexOf("file")))
+              response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.lastIndexOf("file")))
                 console.log("file:",response,file,fileList);
                 this.imgList.push(response.data);
             },
@@ -174,8 +183,10 @@
                     this.idleItemInfo.idleDetails&&
                     this.idleItemInfo.idlePlace&&
                     this.idleItemInfo.idleLabel&&
+
                     this.idleItemInfo.idlePrice&&
                     this.idleItemInfo.idlePhone){
+
                     this.$api.addIdleItem(this.idleItemInfo).then(res=>{
                         if (res.status_code === 1) {
                             this.$message({
@@ -188,7 +199,7 @@
                             this.$message.error('发布失败！'+res.msg);
                         }
                     }).catch(e=>{
-                        this.$message.error('请填写完整信息');
+                        this.$message.error('请填写完整信息:尝试添加了，但是添加失败');
                     })
                 }else {
                     this.$message.error('请填写完整信息！');
@@ -269,7 +280,9 @@
         flex-direction: column;
         align-items: center;
     }
+
     .release-idle-phoneNumber{
         margin: 20px 0;
     }
 </style>
+
