@@ -46,8 +46,18 @@
                                 <div slot="prepend">价格</div>
                             </el-input-number>
                         </div>
-
                     </div>
+
+                    <!--新增联系方式-->
+                    <div>
+                        <el-input
+                                class="release-idle-phoneNumber"
+                                placeholder="请输入联系方式"
+                                v-model="idleItemInfo.idlePhone"
+                                show-word-limit>
+                        </el-input>
+                    </div>
+
                     <div class="release-idle-container-picture">
                         <div class="release-idle-container-picture-title">上传闲置照片</div>
                         <el-upload
@@ -131,7 +141,8 @@
                     pictureList:'',
                     idlePrice:0,
                     idlePlace:'',
-                    idleLabel:''
+                    idleLabel:'',
+                    idlePhone:''
                 }
             };
         },
@@ -164,11 +175,17 @@
             releaseButton(){
                 this.idleItemInfo.pictureList=JSON.stringify(this.imgList);
                 console.log(this.idleItemInfo);
+                this.isPhone();
+                if(this.idleItemInfo.idlePhone == ""){
+                  return;
+                }
                 if(this.idleItemInfo.idleName&&
                     this.idleItemInfo.idleDetails&&
                     this.idleItemInfo.idlePlace&&
                     this.idleItemInfo.idleLabel&&
-                    this.idleItemInfo.idlePrice){
+
+                    this.idleItemInfo.idlePrice&&
+                    this.idleItemInfo.idlePhone){
 
                     this.$api.addIdleItem(this.idleItemInfo).then(res=>{
                         if (res.status_code === 1) {
@@ -191,6 +208,27 @@
             },
             handleExceed(files, fileList) {
                 this.$message.warning(`限制10张图片，本次选择了 ${files.length} 张图，共选择了 ${files.length + fileList.length} 张图`);
+            },
+
+            //检查号码
+            isPhone(){
+                const reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+                if(this.idleItemInfo.idlePhone.length === 11){
+                    if(!reg.test(this.idleItemInfo.idlePhone)){
+                        this.idleItemInfo.idlePhone = "";
+                        this.$message.error('请填写正确的号码');
+                        console.log('请输入正确的号码');
+                    }else {
+
+                        console.log('电话号码输入正确！');
+                    }
+                }else {
+                    this.idleItemInfo.idlePhone = "";
+                    this.$message.error('请填写正确的号码');
+                    console.log('请输入正确的号码');
+                }
+
+
             },
         }
     }
@@ -242,4 +280,9 @@
         flex-direction: column;
         align-items: center;
     }
+
+    .release-idle-phoneNumber{
+        margin: 20px 0;
+    }
 </style>
+

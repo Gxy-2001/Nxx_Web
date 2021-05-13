@@ -13,81 +13,70 @@
           </div>
           <div class="idle-info-price">￥{{ orderInfo.orderPrice }}</div>
 
-        </div>
-        <div class="address-container" @click.stop="selectAddressDialog"
-             :style="orderInfo.userId==userId&&orderInfo.orderStatus===0?'cursor: pointer;':''">
-          <div class="address-title">收货地址: {{ addressInfo.consigneeName }} {{ addressInfo.consigneePhone }}</div>
-          <div class="address-detials">{{ addressInfo.detailAddress }}</div>
-          <el-button v-if="!addressInfo.detailAddress" @click.stop="selectAddressDialog" type="primary" plain>选择收货地址
-          </el-button>
-        </div>
-        <el-dialog
-            title="选择地址"
-            :visible.sync="addressDialogVisible"
-            width="800px">
-          <el-table
-              stripe
-              empty-text="无地址信息，请先在个人中心添加地址"
-              :data="addressData"
-              style="width: 100%">
-            <el-table-column
-                prop="consigneeName"
-                label="收货人姓名"
-                width="120">
-            </el-table-column>
-            <el-table-column
-                prop="consigneePhone"
-                label="手机号"
-                width="140">
-            </el-table-column>
-            <el-table-column
-                prop="detailAddressText"
-                label="地址">
-            </el-table-column>
-            <el-table-column label=" " width="120">
-              <template slot-scope="scope">
-                <el-button
-                    size="mini"
-                    @click="selectAddress(scope.$index, scope.row)">选择
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-dialog>
-        <div class="order-info-container">
-          <div class="order-info-title">订单信息（{{ orderStatus[orderInfo.orderStatus] }}）：</div>
-          <div class="order-info-item">编号：{{ orderInfo.orderNumber }}</div>
-          <div class="order-info-item">支付状态：{{ orderInfo.paymentStatus === 0 ? '未支付' : '已支付' }}</div>
-          <div class="order-info-item">支付方式：{{ orderInfo.paymentWay }}</div>
-          <div class="order-info-item">创建时间：{{
-              orderInfo.createTime.substring(0, 10) + ' ' +
-              orderInfo.createTime.substring(11, 19)
-            }}
-          </div>
-          <div class="order-info-item">支付时间：{{
-              orderInfo.paymentTime ? orderInfo.paymentTime.substring(0, 10) + ' ' +
-                  orderInfo.paymentTime.substring(11, 19) : ''
-            }}
-          </div>
-        </div>
-        <div class="menu">
-          <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===0" type="danger" plain
-                     @click="changeOrderStatus(4,orderInfo)">取消订单
-          </el-button>
-          <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===0" type="primary" plain
-                     @click="changeOrderStatus(1,orderInfo)">立即支付
-          </el-button>
-          <el-button v-if="userId==orderInfo.idleItem.userId&&orderInfo.orderStatus===1" type="primary" plain
-                     @click="changeOrderStatus(2,orderInfo)">发货
-          </el-button>
-          <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===2" type="primary" plain
-                     @click="changeOrderStatus(3,orderInfo)">确认收货
-          </el-button>
-        </div>
-      </div>
-      <app-foot></app-foot>
-    </app-body>
-  </div>
+
+                </div>
+                <div class="address-container" @click.stop="selectAddressDialog" :style="orderInfo.userId==userId&&orderInfo.orderStatus===0?'cursor: pointer;':''">
+                    <div class="address-title">收货地址: {{addressInfo.consigneeName}} {{addressInfo.consigneePhone}}</div>
+                    <div class="address-detials">{{addressInfo.detailAddress}}</div>
+                    <el-button v-if="!addressInfo.detailAddress" @click.stop="selectAddressDialog" type="primary" plain>选择收货地址</el-button>
+                </div>
+                <el-dialog
+                        title="选择地址"
+                        :visible.sync="addressDialogVisible"
+                        width="800px">
+                    <div class="tips"><p>如果想新增地址，请前往个人中心添加</p></div>
+                    <el-table
+                            stripe
+                            empty-text="无地址信息，请先在个人中心添加地址"
+                            :data="addressData"
+                            style="width: 100%">
+                        <el-table-column
+                                prop="consigneeName"
+                                label="收货人姓名"
+                                width="120">
+                        </el-table-column>
+                        <el-table-column
+                                prop="consigneePhone"
+                                label="手机号"
+                                width="140">
+                        </el-table-column>
+                        <el-table-column
+                                prop="detailAddressText"
+                                label="地址">
+                        </el-table-column>
+                        <el-table-column label=" " width="120">
+                            <template slot-scope="scope">
+                                <el-button
+                                        size="mini"
+                                        @click="selectAddress(scope.$index, scope.row)">选择
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-dialog>
+                <div class="order-info-container">
+                    <div class="order-info-title">订单信息（{{orderStatus[orderInfo.orderStatus]}}）：</div>
+                    <div class="order-info-item">编号：{{orderInfo.orderNumber}}</div>
+                    <div class="order-info-item">支付状态：{{orderInfo.paymentStatus===0?'未支付':'已支付'}}</div>
+                    <div class="order-info-item">支付方式：{{orderInfo.paymentWay}}</div>
+                    <div class="order-info-item">创建时间：{{orderInfo.createTime.substring(0, 10) + ' ' +
+                        orderInfo.createTime.substring(11, 19)}}
+                    </div>
+                    <div class="order-info-item">支付时间：{{orderInfo.paymentTime?orderInfo.paymentTime.substring(0, 10) + ' ' +
+                        orderInfo.paymentTime.substring(11, 19):''}}
+                    </div>
+                </div>
+                <div class="menu">
+                    <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===0" type="danger" plain @click="changeOrderStatus(4,orderInfo)">取消订单</el-button>
+                    <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===0" type="primary" plain @click="changeOrderStatus(1,orderInfo)">立即支付</el-button>
+                    <el-button v-if="userId==orderInfo.idleItem.userId&&orderInfo.orderStatus===1" type="primary" plain @click="changeOrderStatus(2,orderInfo)">发货</el-button>
+                    <el-button v-if="userId==orderInfo.userId&&orderInfo.orderStatus===2" type="primary" plain @click="changeOrderStatus(3,orderInfo)">确认收货</el-button>
+                </div>
+            </div>
+            <app-foot></app-foot>
+        </app-body>
+    </div>
+
 </template>
 
 <script>
@@ -352,7 +341,13 @@ export default {
   color: #444444;
 }
 
-.menu {
-  margin-left: 20px;
-}
+
+    .menu {
+        margin-left: 20px;
+    }
+
+    /*.tips{*/
+    /*  margin-top: 20px;*/
+    /*}*/
 </style>
+
