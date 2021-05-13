@@ -1,75 +1,81 @@
 <template>
     <div>
+      <div>
         <app-head></app-head>
         <app-body>
-            <div style="min-height: 180vh;" class="container">
+          <div style="min-height: 200vh;" class="container">
 
-              <div class="carousel">
-                <carousel></carousel>
-              </div>
-              <el-tabs v-model="labelName" type="card" @tab-click="handleClick">
-                  <el-tab-pane label="全部" name="0"></el-tab-pane>
-                  <el-tab-pane label="二手书" name="1"></el-tab-pane>
-                  <el-tab-pane label="数码" name="2"></el-tab-pane>
-                  <el-tab-pane label="零食" name="3"></el-tab-pane>
-                  <el-tab-pane label="活动票" name="4"></el-tab-pane>
-                  <el-tab-pane label="其他" name="5"></el-tab-pane>
-              </el-tabs>
-
-              <div style="margin: 0 20px;">
-                  <el-row :gutter="30">
-                      <el-col :span="6" v-for="(idle,index) in idleList" :key="index">
-                          <div class="idle-card" @click="toDetails(idle)">
-                              <el-image
-                                      style="width: 100%; height: 160px"
-                                      :src="idle.imgUrl"
-                                      fit="contain">
-                                  <div slot="error" class="image-slot">
-                                      <i class="el-icon-picture-outline">无图</i>
-                                  </div>
-                              </el-image>
-                              <div class="idle-title">
-                                  {{idle.idleName}}
-                              </div>
-                              <el-row style="margin: 5px 10px;">
-                                  <el-col :span="12">
-                                      <div class="idle-prive">￥{{idle.idlePrice}}</div>
-                                  </el-col>
-                                  <el-col :span="12">
-                                      <div class="idle-place">{{idle.idlePlace}}</div>
-                                  </el-col>
-                              </el-row>
-                              <div class="idle-time">{{idle.timeStr}}</div>
-                              <div class="user-info">
-                                  <el-image
-                                          style="width: 30px; height: 30px"
-                                          :src="idle.user.avatar"
-                                          fit="contain">
-                                      <div slot="error" class="image-slot">
-                                          <i class="el-icon-picture-outline">无图</i>
-                                      </div>
-                                  </el-image>
-                                  <div class="user-nickname">{{idle.user.nickname}}</div>
-                              </div>
-                          </div>
-                      </el-col>
-                  </el-row>
-              </div>
-
-              <div class="fenye">
-                  <el-pagination
-                          background
-                          @current-change="handleCurrentChange"
-                          :current-page.sync="currentPage"
-                          :page-size="8"
-                          layout="prev, pager, next, jumper"
-                          :total="totalItem">
-                  </el-pagination>
-              </div>
+            <div class="carousel">
+              <carousel></carousel>
+              <hr>
             </div>
-        </app-body>
-      <app-foot></app-foot>
+            <el-tabs v-model="labelName" @tab-click="handleClick">
+              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="0">全部</el-button>
+              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="1">二手书</el-button>
+              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="2">数码</el-button>
+              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="3">零食</el-button>
+              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="4">活动票</el-button>
+<!--              <el-tab-pane label="全部" name="0"></el-tab-pane>-->
+<!--              <el-tab-pane label="二手书" name="1"></el-tab-pane>-->
+<!--              <el-tab-pane label="数码" name="2"></el-tab-pane>-->
+<!--              <el-tab-pane label="零食" name="3"></el-tab-pane>-->
+<!--              <el-tab-pane label="活动票" name="4"></el-tab-pane>-->
+<!--              <el-tab-pane label="其他" name="5"></el-tab-pane>-->
+            </el-tabs>
 
+            <div style="margin: 0 20px;">
+              <el-row :gutter="30">
+                <el-col :span="6" v-for="(idle,index) in idleList" :key="index">
+                  <div class="idle-card" @click="toDetails(idle)">
+                    <el-image
+                        style="width: 100%; height: 160px"
+                        :src="idle.imgUrl"
+                        fit="contain">
+                      <div slot="error" class="image-slot">
+                        <i class="el-icon-picture-outline">无图</i>
+                      </div>
+                    </el-image>
+                    <div class="idle-title">
+                      {{idle.idleName}}
+                    </div>
+                    <el-row style="margin: 5px 10px;">
+                      <el-col :span="12">
+                        <div class="idle-prive">￥{{idle.idlePrice}}</div>
+                      </el-col>
+                      <el-col :span="12">
+                        <div class="idle-place">{{idle.idlePlace}}</div>
+                      </el-col>
+                    </el-row>
+                    <div class="idle-time">{{idle.timeStr}}</div>
+                    <div class="user-info">
+                      <el-image
+                          style="width: 30px; height: 30px"
+                          :src="idle.user.avatar"
+                          fit="contain">
+                        <div slot="error" class="image-slot">
+                          <i class="el-icon-picture-outline">无图</i>
+                        </div>
+                      </el-image>
+                      <div class="user-nickname">{{idle.user.nickname}}</div>
+                    </div>
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </app-body>
+        <div class="fenye">
+          <el-pagination
+              background
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-size="8"
+              layout="prev, pager, next, jumper"
+              :total="totalItem">
+          </el-pagination>
+        </div>
+        <app-foot></app-foot>
+      </div>
     </div>
 </template>
 
@@ -86,7 +92,7 @@
             AppHead,
             AppBody,
             AppFoot,
-            Carousel
+            Carousel,
         },
         //成员变量初始化
         data() {
@@ -186,6 +192,7 @@
 </script>
 
 <style scoped>
+
     .idle-card {
         height: 300px;
         border: #eeeeee solid 1px;
@@ -196,8 +203,9 @@
     .fenye {
         display: flex;
         justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
         height: 60px;
-      align-items: center;
     }
 
     .idle-title {
@@ -244,11 +252,15 @@
     }
 
     .carousel{
-      height:662px;
+      height:500px;
+      max-width: 80%;
       margin-top: 20px;
       margin-bottom: 20px;
-      margin-left: 80px;
-      margin-right: 80px;
+      margin-left: 10%;
+      margin-right: 10%;
     }
-
+    /*按住按钮*/
+    .el-button:active{
+      background: #67C23A;
+    }
 </style>

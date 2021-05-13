@@ -1,12 +1,12 @@
 <template>
     <div>
         <app-head :nickname-value="userInfo.nickname"
-                  :avatarValue="userInfo.avatar"></app-head>
+                  :avatarValue="userInfo.avatar"
+        ></app-head>
         <app-body>
             <div v-show="!eidtAddress">
                 <div class="user-info-container">
                     <div class="user-info-details">
-
                       <!--开发用的，实际用起来要改-->
                         <el-upload
                                 action="http://localhost:8080/file/"
@@ -19,66 +19,69 @@
                                     :src="userInfo.avatar"
                                     fit="contain"></el-image>
                         </el-upload>
-                        <div class="user-info-details-text">
-                            <div class="user-info-details-text-nickname">{{userInfo.nickname}}</div>
-                            <div class="user-info-details-text-time">{{userInfo.signInTime}} 加入平台</div>
-                            <div class="user-info-details-text-edit">
-                                <el-button type="primary" plain @click="userInfoDialogVisible = true">编辑个人信息</el-button>
-                            </div>
-                            <el-dialog
-                                    @close="finishEdit"
-                                    title="编辑个人信息"
-                                    :visible.sync="userInfoDialogVisible"
-                                    width="400px">
-                                <div class="edit-tip">昵称</div>
-                                <el-input
-                                        v-model="userInfo.nickname"
-                                        :disabled="notUserNicknameEdit"
-                                        @change="saveUserNickname">
-                                    <el-button slot="append" type="warning" icon="el-icon-edit"
-                                               @click="notUserNicknameEdit = false">编辑
-                                    </el-button>
-                                </el-input>
 
-                                <div v-if="userPasswordEdit">
-                                    <div class="edit-tip">原密码</div>
-                                    <el-input v-model="userPassword1" show-password></el-input>
-                                    <div class="edit-tip">新密码</div>
-                                    <el-input v-model="userPassword2" show-password></el-input>
-                                    <div class="edit-tip">确认新密码</div>
-                                    <el-input v-model="userPassword3" show-password></el-input>
-                                    <div class="edit-tip"></div>
-                                    <el-button @click="savePassword" plain>确认修改</el-button>
-                                </div>
-                                <div v-else>
-                                    <div class="edit-tip">密码</div>
-                                    <el-input
-                                            value="123456"
-                                            :disabled="true"
-                                            show-password>
-                                        <el-button slot="append" type="warning" icon="el-icon-edit"
-                                                   @click="userPasswordEdit = true">编辑
-                                        </el-button>
-                                    </el-input>
-                                </div>
-                                <span slot="footer" class="dialog-footer">
+                        <div class="user-info">
+                            <div id="user-info-details-text-nickname">{{userInfo.nickname}}</div>
+                            <div id="user-info-details-text-time">{{userInfo.signInTime}} 加入平台</div>
+                          <div class="user-info-edit">
+                            <div>
+                              <el-button type="primary" plain @click="userInfoDialogVisible = true">编辑个人信息</el-button>
+                            </div>
+                            <!--弹出的对话单-->
+                            <el-dialog
+                                @close="finishEdit"
+                                title="编辑个人信息"
+                                :visible.sync="userInfoDialogVisible"
+                                width="400px">
+                              <div class="edit-tip">昵称</div>
+                              <el-input
+                                  v-model="userInfo.nickname"
+                                  :disabled="notUserNicknameEdit"
+                                  @change="saveUserNickname">
+                                <el-button slot="append" type="warning" icon="el-icon-edit"
+                                           @click="notUserNicknameEdit = false">编辑
+                                </el-button>
+                              </el-input>
+                              <div v-if="userPasswordEdit">
+                                <div class="edit-tip">原密码</div>
+                                <el-input v-model="userPassword1" show-password></el-input>
+                                <div class="edit-tip">新密码</div>
+                                <el-input v-model="userPassword2" show-password></el-input>
+                                <div class="edit-tip">确认新密码</div>
+                                <el-input v-model="userPassword3" show-password></el-input>
+                                <div class="edit-tip"></div>
+                                <el-button @click="savePassword" plain>确认修改</el-button>
+                              </div>
+                              <div v-else>
+                                <div class="edit-tip">密码</div>
+                                <el-input
+                                    value="123456"
+                                    :disabled="true"
+                                    show-password>
+                                  <el-button slot="append" type="warning" icon="el-icon-edit"
+                                             @click="userPasswordEdit = true">编辑
+                                  </el-button>
+                                </el-input>
+                              </div>
+                              <span slot="footer" class="dialog-footer">
                                 <el-button @click="userInfoDialogVisible=false">完成</el-button>
                             </span>
                             </el-dialog>
+                            <el-button type="primary" plain @click="eidtAddress=true">编辑收货地址</el-button>
+                          </div>
                         </div>
+
                     </div>
-                    <div class="user-info-splace">
-                        <el-button type="primary" plain @click="eidtAddress=true">编辑收货地址</el-button>
-                    </div>
+
                 </div>
+              <!--第二部分-->
                 <div class="idle-container">
                     <el-tabs v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="我发布的" name="1"></el-tab-pane>
                         <el-tab-pane label="我下架的" name="2"></el-tab-pane>
-                        <el-tab-pane label="我收藏的" name="3"></el-tab-pane>
+                      <el-tab-pane label="我收藏的" name="3"></el-tab-pane>
                         <el-tab-pane label="我卖出的" name="4"></el-tab-pane>
                       <el-tab-pane label="我买到的" name="5"></el-tab-pane>
-                      <el-tab-pane label="我的好友" name="6"></el-tab-pane>
                     </el-tabs>
                     <div class="idle-container-list">
                         <div v-for="(item,index) in dataList[activeName-1] " :key="index"  class="idle-container-list-item">
@@ -199,6 +202,8 @@
                 </div>
             </div>
         </app-body>
+
+
       <app-foot></app-foot>
 
     </div>
@@ -615,27 +620,33 @@
         display: flex;
         height: 140px;
         align-items: center;
-        margin: 20px 40px;
+        margin-left: 40px;
+      margin-top: 20px;
+      width: 50%;
     }
 
-    .user-info-details-text {
-        margin-left: 20px;
+    .user-info{
+      width: 300px;
+    }
+    .user-info-edit{
+      width: 300px;
+      display: flex;
+      justify-content: space-around;
     }
 
-    .user-info-details-text-nickname {
+    #user-info-details-text-nickname {
         font-size: 26px;
         font-weight: 600;
-        margin: 10px 0;
+      margin-left: 10px;
+      margin-bottom: 10px;
     }
 
-    .user-info-details-text-time {
+    #user-info-details-text-time {
         font-size: 14px;
         margin-bottom: 10px;
+      margin-left: 10px;
     }
 
-    .user-info-splace {
-        margin-right: 90px;
-    }
 
     .idle-container {
         padding: 0 20px;

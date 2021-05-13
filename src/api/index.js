@@ -302,7 +302,21 @@ const api = {
             method: 'get',
             params: query
         });
-    }
+    },
+    getCarouselList(query) {
+        return request({
+            url: '/admin/carouselList',
+            method: 'get',
+            params: query
+        });
+    },
+    deleteCarouselPhoto(query) {
+        return request({
+            url: '/admin/carouselList',
+            method: 'get',
+            params: query
+        });
+    },
 };
 
 

@@ -20,7 +20,8 @@
     }
     .main-content{
         width: 80%;
-        background-color: #ffffff;
+      /*页面主体颜色*/
+      background-color: #FFFFFF;
         min-height: 90vh;
       border-radius: 10px;
     }

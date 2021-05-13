@@ -1,28 +1,31 @@
 <!--这个轮播图的麻烦之处在于 如何实现动态增删 和 图片自适应-->
 <template>
-  <el-carousel :interval="3000" arrow="hover" height="600px">
-    <el-carousel-item v-for="item in items" :key="item.id">
-      <img :src="item.idView" class="image">
-    </el-carousel-item>
-  </el-carousel>
+  <div>
+    <el-carousel :interval="3000" arrow="hover" indicator-position="outside" height="450px" >
+      <el-carousel-item v-for="item in items" :key="item.id">
+        <img :src="item.idView" class="image">
+      </el-carousel-item>
+    </el-carousel>
+  </div>
 </template>
 
 <script>
 //import
+import $ from 'jquery'
 export default {
   name: "Carousel",
   components: {
-
   },
 
   data() {
     return {
       items:[
-          {id:0,idView:require("../../assets/Carousel/1.jpg")},
-        {id:1,idView:require("../../assets/Carousel/2.jpg")},
-        {id:2,idView:require("../../assets/Carousel/3.jpg")},
-        {id:3,idView:require("../../assets/Carousel/4.jpg")},
+          {id:0,idView:require("../../assets/Carousel/1.png")},
+        {id:1,idView:require("../../assets/Carousel/2.png")},
+        {id:2,idView:require("../../assets/Carousel/3.png")},
+        {id:3,idView:require("../../assets/Carousel/4.png")},
       ],
+      input:'',
     };
   },
   created() {
@@ -31,6 +34,20 @@ export default {
 
   },
   methods: {
+    //注意items是一个数组,删除和添加其实都是调用splice方法
+    addItem(){
+      let addr=this.input;
+      let newItemID=this.items.length;
+      console.log(newItemID);
+      let newItem={id:newItemID,idView:require("../../assets/Carousel/4.png")};
+      this.items.splice(newItemID,0,newItem);
+    },
+    deleteItem(){
+      let id=3;
+      // $("el-carousel__item").append(newItem);
+      // $(".el-carousel__container").addItem({id:newItemID,idView:require("../../assets/Carousel/1.png")})
+      this.items.splice(id,1);
+    }
 
 },
 }

@@ -6,11 +6,11 @@
 <!--容器-->
         <div class="header-container">
 
-<!--文字logo部分-->
+<!--logo部分-->
             <div class="app-name">
-                <router-link to="/">
-                  <logo>南小咸<span>&nbsp;&nbsp;校内二手交易平台</span></logo>
-                </router-link>
+              <router-link to="/">
+                <img src="../../assets/logo.png" alt="nxx" >
+              </router-link>
             </div>
 <!--搜索框-->
             <div class="search-container">
@@ -21,7 +21,7 @@
 <!--几个按钮-->
             <div class="btns">
               <el-button type="primary" icon="el-icon-plus"  @click="toRelease">发布闲置</el-button>
-              <el-button type="primary" icon="el-icon-chat-dot-round" @click="toMessage">消息</el-button>
+              <el-button type="primary" icon="el-icon-chat-dot-round" @click="toMessage">留言</el-button>
               <el-button type="primary" icon="el-icon-document" @click="toLogin">登录</el-button>
               <el-button type="primary" icon="el-icon-tickets" @click="toSignin">注册</el-button>
               <el-button type="primary" icon="el-icon-star-on" @click="toGithub">给个Star</el-button>
@@ -38,8 +38,8 @@
                 </div>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><div @click="toMe">个人中心</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe">更改背景</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe">好友</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe">收藏</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMessage">留言</div></el-dropdown-item>
                   <el-dropdown-item divided style="color: red;"><div @click="loginOut">退出登录</div></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -58,7 +58,8 @@
             return {
                 searchValue: this.searchInput,
                 nickname:'登录',
-                //默认头像，还没有更改
+                //默认头像，感觉可以换一换，有点小丑
+                //https://img-host-service.oss-cn-shanghai.aliyuncs.com/avatar.jpg?versionId=CAEQIRiBgID784CFyxciIDk4N2U1M2I1NDBlNDRhOGJhOGIwOWVmNzgyMGRmZTYy
                 avatar:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
                 isLogin:false
             };
@@ -151,6 +152,7 @@
         display: flex;
         justify-content: center;
         border-bottom: #eeeeee solid 2px;
+      margin-bottom: 20px;
         z-index: 1000;
     }
 
@@ -169,15 +171,15 @@
 
 
     .app-name a{
-      color: #0072ea;
+      /*color: #0072ea;*/
       font-size: 24px;
       text-decoration: none;
     }
     /*小字部分*/
-    span{
-      font-family: 楷体;
-      font-size: 6px;
-    }
+    /*span{*/
+    /*  font-family: 楷体;*/
+    /*  font-size: 6px;*/
+    /*}*/
 
     .search-container {
       width: 25%;
@@ -193,15 +195,5 @@
       display: flex;
       align-items: center;
     }
-
-    /*no use*/
-    /*.user-name-text{*/
-    /*  float: right;*/
-    /*    font-size: 16px;*/
-    /*    font-weight: 600;*/
-    /*    color: #409EFF;*/
-    /*    cursor: pointer;*/
-    /*    text-decoration: none;*/
-    /*}*/
 
 </style>
