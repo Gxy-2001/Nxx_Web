@@ -19,6 +19,23 @@
                         <div v-if="!isMaster&&idleItemInfo.idleStatus!==1" style="color: red;font-size: 16px;">闲置已下架或删除</div>
                         <el-button v-if="!isMaster&&idleItemInfo.idleStatus===1" type="danger" plain @click="buyButton(idleItemInfo)">立即购买</el-button>
                         <el-button v-if="!isMaster&&idleItemInfo.idleStatus===1" type="primary" plain @click="favoriteButton(idleItemInfo)">{{isFavorite?'取消收藏':'收藏'}}</el-button>
+
+                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="confirm" @click="changePrice = true" plain>修改价格</el-button>
+                        <el-dialog @close="priceChange"
+                                   title="修改价格"
+                                   :visible.sync="changePrice"
+                                   width="400px">
+                          <div class="price">价格</div>
+                          <div style="width: 300px;">
+                            <el-input-number v-model="idleItemInfo.idlePrice" :precision="2" :step="10" :max="10000000" @change="UpdatePrice">
+                              <div slot="prepend">价格</div>
+                            </el-input-number>
+                          </div>
+                          <span slot="footer" class="dialog-footer">
+                                <el-button @click="changePrice=false">完成</el-button>
+                            </span>
+                        </el-dialog>
+
                         <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="danger" @click="changeStatus(idleItemInfo,2)" plain>下架</el-button>
                         <el-button v-if="isMaster&&idleItemInfo.idleStatus===2" type="primary" @click="changeStatus(idleItemInfo,1)" plain>重新上架</el-button>
                     </div>
@@ -122,6 +139,7 @@
                         signInTime:''
                     },
                 },
+                changePrice:false,
                 isMaster:false,
                 isFavorite:true,
                 favoriteId:0
@@ -190,6 +208,19 @@
                 }
                 return "";
             },
+
+            priceChange(){
+              this.changePrice = false;
+            },
+            UpdatePrice(){
+              this.$api.updateIdleItem({
+                idlePrice: this.idleItemInfo.idlePrice
+              }).then(res => {
+                console.log(res);
+                //idleItemInfo.idlePrice = this.idleItemInfo.idlePrice;
+              })
+            },
+
             replyMessage(index){
                 $('html,body').animate({
                     scrollTop: $("#replyMessageLocation").offset().top-600
@@ -200,6 +231,9 @@
                 this.toUser=this.messageList[index].userId;
                 this.toMessage=this.messageList[index].id;
             },
+
+
+
             changeStatus(idle,status){
                 this.$api.updateIdleItem({
                     id:idle.id,
@@ -343,7 +377,7 @@
     .details-header-buy {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
         height: 50px;
         width: 280px;
     }

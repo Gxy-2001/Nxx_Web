@@ -21,6 +21,7 @@
                         title="选择地址"
                         :visible.sync="addressDialogVisible"
                         width="800px">
+                    <div class="tips"><p>如果想新增地址，请前往个人中心添加</p></div>
                     <el-table
                             stripe
                             empty-text="无地址信息，请先在个人中心添加地址"
@@ -340,4 +341,8 @@
     .menu {
         margin-left: 20px;
     }
+
+    /*.tips{*/
+    /*  margin-top: 20px;*/
+    /*}*/
 </style>
