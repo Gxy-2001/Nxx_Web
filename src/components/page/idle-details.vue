@@ -19,8 +19,8 @@
                         <div v-if="!isMaster&&idleItemInfo.idleStatus!==1" style="color: red;font-size: 16px;">闲置已下架或删除</div>
                         <el-button v-if="!isMaster&&idleItemInfo.idleStatus===1" type="danger" plain @click="buyButton(idleItemInfo)">立即购买</el-button>
                         <el-button v-if="!isMaster&&idleItemInfo.idleStatus===1" type="primary" plain @click="favoriteButton(idleItemInfo)">{{isFavorite?'取消收藏':'收藏'}}</el-button>
-                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="danger" @click="changeStatus(idleItemInfo,2)" plain>下架</el-button>
-                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===2" type="primary" @click="changeStatus(idleItemInfo,1)" plain>重新上架</el-button>
+                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="danger" @click="changeStatus(idleItemInfo,3)" plain>下架</el-button>
+                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===3" type="primary" @click="changeStatus(idleItemInfo,1)" plain>重新上架</el-button>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                         {{idleItemInfo.idleDetails}}
                     </div>
                     <div class="details-picture">
-                        <el-image v-for="(imgUrl,i) in idleItemInfo.pictureList"
+                        <el-image v-for="(imgUrl) in idleItemInfo.pictureList"
                                   style="width: 90%;margin-bottom: 2px;"
                                   :src="imgUrl"
                                   fit="contain">
@@ -133,7 +133,7 @@
             this.$api.getIdleItem({
                 id:id
             }).then(res=>{
-                console.log(res);
+                console.log("idle_detailes  created",res);
                 if(res.data){
                     let list=res.data.idleDetails.split(/\r?\n/);
                     let str='';
@@ -145,7 +145,7 @@
                     this.idleItemInfo=res.data;
                     console.log(this.idleItemInfo);
                     let userId=this.getCookie('UserId');
-                    consFole.log('userid',userId)
+                    console.log('userid',userId)
                     if(userId == this.idleItemInfo.userId){
                         console.log('isMaster');
                         this.isMaster=true;
