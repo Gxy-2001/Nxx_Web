@@ -48,12 +48,22 @@
                                 <div slot="prepend">价格</div>
                             </el-input-number>
                         </div>
-
                     </div>
+
+                    <!--新增联系方式-->
+                    <div>
+                        <el-input
+                                class="release-idle-phoneNumber"
+                                placeholder="请输入联系方式"
+                                v-model="idleItemInfo.idlePhone"
+                                show-word-limit>
+                        </el-input>
+                    </div>
+
                     <div class="release-idle-container-picture">
                         <div class="release-idle-container-picture-title">上传闲置照片</div>
                         <el-upload
-                                action="http://localhost:8080/file/"
+                                action="http://localhost:8090/file"
                                 :on-preview="fileHandlePreview"
                                 :on-remove="fileHandleRemove"
                                 :on-success="fileHandleSuccess"
@@ -65,12 +75,22 @@
                                 multiple>
                             <i class="el-icon-upload"></i>
                             <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
+                          <div class="el-upload__tip" slot="tip">暂时只能上传jpg文件</div>
                         </el-upload>
                         <div class="picture-list">
                             <el-image style="width: 600px;margin-bottom: 2px;" fit="contain"
                                       v-for="(img,index) in imgList" :src="img" :key="index"
                                       :preview-src-list="imgList"></el-image>
                         </div>
+<!--                        <div class="picture-list">-->
+<!--                            <el-image style="width: 600px;margin-bottom: 2px;"-->
+<!--                                      fit="contain"-->
+<!--                                      v-for="(img) in imgList"-->
+<!--                                      :src="img"-->
+<!--                                      :preview-src-list="imgList">-->
+
+<!--                            </el-image>-->
+<!--                        </div>-->
                         <el-dialog :visible.sync="imgDialogVisible">
                             <img width="100%" :src="dialogImageUrl" alt="">
                         </el-dialog>
@@ -129,7 +149,8 @@
                     pictureList:'',
                     idlePrice:0,
                     idlePlace:'',
-                    idleLabel:''
+                    idleLabel:'',
+                    idlePhone:''
                 }
             };
         },
@@ -152,17 +173,28 @@
                 this.imgDialogVisible=true;
             },
             fileHandleSuccess(response, file, fileList){
+                //response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.length - 17))
+              console.log("fileHandleSuccess",response.data)
+              console.log("lastIndex",response.data.substr(response.data.lastIndexOf("file")))
+              response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.lastIndexOf("file")))
                 console.log("file:",response,file,fileList);
                 this.imgList.push(response.data);
             },
             releaseButton(){
                 this.idleItemInfo.pictureList=JSON.stringify(this.imgList);
                 console.log(this.idleItemInfo);
+                this.isPhone();
+                if(this.idleItemInfo.idlePhone == ""){
+                  return;
+                }
                 if(this.idleItemInfo.idleName&&
                     this.idleItemInfo.idleDetails&&
                     this.idleItemInfo.idlePlace&&
                     this.idleItemInfo.idleLabel&&
-                    this.idleItemInfo.idlePrice){
+
+                    this.idleItemInfo.idlePrice&&
+                    this.idleItemInfo.idlePhone){
+
                     this.$api.addIdleItem(this.idleItemInfo).then(res=>{
                         if (res.status_code === 1) {
                             this.$message({
@@ -175,7 +207,7 @@
                             this.$message.error('发布失败！'+res.msg);
                         }
                     }).catch(e=>{
-                        this.$message.error('请填写完整信息');
+                        this.$message.error('请填写完整信息:尝试添加了，但是添加失败');
                     })
                 }else {
                     this.$message.error('请填写完整信息！');
@@ -184,6 +216,27 @@
             },
             handleExceed(files, fileList) {
                 this.$message.warning(`限制10张图片，本次选择了 ${files.length} 张图，共选择了 ${files.length + fileList.length} 张图`);
+            },
+
+            //检查号码
+            isPhone(){
+                const reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+                if(this.idleItemInfo.idlePhone.length === 11){
+                    if(!reg.test(this.idleItemInfo.idlePhone)){
+                        this.idleItemInfo.idlePhone = "";
+                        this.$message.error('请填写正确的号码');
+                        console.log('请输入正确的号码');
+                    }else {
+
+                        console.log('电话号码输入正确！');
+                    }
+                }else {
+                    this.idleItemInfo.idlePhone = "";
+                    this.$message.error('请填写正确的号码');
+                    console.log('请输入正确的号码');
+                }
+
+
             },
         }
     }
@@ -235,4 +288,9 @@
         flex-direction: column;
         align-items: center;
     }
+
+    .release-idle-phoneNumber{
+        margin: 20px 0;
+    }
 </style>
+
