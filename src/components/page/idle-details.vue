@@ -20,8 +20,8 @@
                         <el-button v-if="!isMaster&&idleItemInfo.idleStatus===1" type="danger" plain @click="buyButton(idleItemInfo)">立即购买</el-button>
                         <el-button v-if="!isMaster&&idleItemInfo.idleStatus===1" type="primary" plain @click="favoriteButton(idleItemInfo)">{{isFavorite?'取消收藏':'收藏'}}</el-button>
 
-
-                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="confirm" @click="changePrice = true" plain>修改价格</el-button>
+                      
+                        <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="danger" plain @click="changePrice = true" >修改价格</el-button>
                         <el-dialog @close="priceChange"
                                    title="修改价格"
                                    :visible.sync="changePrice"
@@ -39,7 +39,6 @@
 
                         <el-button v-if="isMaster&&idleItemInfo.idleStatus===1" type="danger" @click="changeStatus(idleItemInfo,2)" plain>下架</el-button>
                         <el-button v-if="isMaster&&idleItemInfo.idleStatus===2" type="primary" @click="changeStatus(idleItemInfo,1)" plain>重新上架</el-button>
-
                     </div>
                 </div>
 
@@ -49,11 +48,10 @@
                         {{idleItemInfo.idleDetails}}
                     </div>
                     <div class="details-picture">
-                        <el-image v-for="(imgUrl) in idleItemInfo.pictureList"
+                        <el-image v-for="(imgUrl,i) in idleItemInfo.pictureList"
                                   style="width: 90%;margin-bottom: 2px;"
                                   :src="imgUrl"
-                                  fit="contain">
-                        </el-image>
+                                  fit="contain"></el-image>
                     </div>
                 </div>
 
@@ -80,10 +78,10 @@
                             <div class="message-container-list-left">
                                 <el-image
                                         style="width: 55px; height: 55px;border-radius: 5px;"
-                                        :src="mes.from.avatar"
+                                        :src="mes.fromU.avatar"
                                         fit="contain"></el-image>
                                 <div class="message-container-list-text">
-                                    <div class="message-nickname">{{mes.from.nickname}}
+                                    <div class="message-nickname">{{mes.fromU.nickname}}
                                         {{mes.toU.nickname?' @'+mes.toU.nickname+'：'+
                                         mes.toM.content.substring(0,10)+
                                         (mes.toM.content.length>10?'...':''):''}}</div>
@@ -153,7 +151,7 @@
             this.$api.getIdleItem({
                 id:id
             }).then(res=>{
-                console.log("idle_detailes  created",res);
+                console.log(res);
                 if(res.data){
                     let list=res.data.idleDetails.split(/\r?\n/);
                     let str='';
@@ -164,7 +162,7 @@
                     res.data.pictureList=JSON.parse(res.data.pictureList);
                     this.idleItemInfo=res.data;
                     console.log(this.idleItemInfo);
-                    let userId=this.getCookie('UserId');
+                    let userId=this.getCookie('shUserId');
                     console.log('userid',userId)
                     if(userId == this.idleItemInfo.userId){
                         console.log('isMaster');
@@ -184,7 +182,6 @@
                     idleId:this.idleItemInfo.id
                 }).then(res=>{
                     console.log('getAllIdleMessage',res.data);
-                    //this.messageList=res.data;
                     if(res.status_code===1){
                         this.messageList=res.data;
                     }
@@ -230,7 +227,7 @@
                     scrollTop: $("#replyMessageLocation").offset().top-600
                 }, {duration: 500, easing: "swing"});
                 this.isReply=true;
-                this.replyData.toUserNickname=this.messageList[index].from.nickname;
+                this.replyData.toUserNickname=this.messageList[index].fromU.nickname;
                 this.replyData.toMessage=this.messageList[index].content.substring(0,10)+(this.messageList[index].content.length>10?'...':'');
                 this.toUser=this.messageList[index].userId;
                 this.toMessage=this.messageList[index].id;
@@ -381,7 +378,7 @@
     .details-header-buy {
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: flex-end;
         height: 50px;
         width: 280px;
     }
