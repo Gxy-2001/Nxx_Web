@@ -40,7 +40,10 @@
                 </div>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><div @click="toMe">个人中心</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe_Favorites">收藏</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe_IdleItem">发布清单</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe_Favorites">我的收藏</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe_Order">已购</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="toMe_Sold">已卖</div></el-dropdown-item>
                   <el-dropdown-item><div @click="toMessage">留言</div></el-dropdown-item>
                   <el-dropdown-item divided style="color: red;"><div @click="loginOut">退出登录</div></el-dropdown-item>
                 </el-dropdown-menu>
@@ -52,7 +55,6 @@
 </template>
 
 <script>
-
     export default {
         name: 'Header',
         props: ['searchInput','nicknameValue','avatarValue'],
@@ -86,11 +88,11 @@
                 this.isLogin=true;
             }
         },
-        // mounted() {
-        //   this.nowURL=window.location.pathname();
-        //   console.log(this.nowURL);
-        //   // if(this.nowURL)
-        // },
+        mounted() {
+          this.nowURL=window.location.href;
+          console.log(this.nowURL);
+          // if(this.nowURL)
+        },
       //方法：第一个是搜索框控制，第二个是退出登录，其他都是跳转；
         methods: {
 
@@ -124,9 +126,26 @@
               this.$router.push({path: '/me'});
             }
           },
+          toMe_IdleItem() {
+            if ('/me' !== this.$route.path) {
+              this.$router.push({path: '/me',query:{activeName:'1'}});
+            }
+          },
           toMe_Favorites() {
             if ('/me' !== this.$route.path) {
-              this.$router.push({path: '/me',query:{id:"tab-3"}});
+              this.$router.push({path: '/me',query:{activeName:'3'}});
+            }
+          },
+          toMe_Sold() {
+            if ('/me' !== this.$route.path) {
+              this.$router.push({path: '/me',query:{activeName:'4'}});
+            }
+          },
+        toMe_Order() {
+            //todo
+            // if(nowURL)
+            if ('/me' !== this.$route.path) {
+              this.$router.push({path: '/me',query:{activeName:'5'}});
             }
           },
           toMessage(){

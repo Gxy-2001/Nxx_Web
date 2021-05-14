@@ -77,11 +77,11 @@
               <!--第二部分-->
                 <div class="idle-container">
                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="我发布的" id="tab-1" name="1"></el-tab-pane>
-                        <el-tab-pane label="我下架的" id="tab-2" name="2"></el-tab-pane>
-                      <el-tab-pane label="我收藏的" id="tab-3" name="3"></el-tab-pane>
-                        <el-tab-pane label="我卖出的" id="tab-4" name="4"></el-tab-pane>
-                      <el-tab-pane label="我买到的" id="tab-5" name="5"></el-tab-pane>
+                        <el-tab-pane label="发布清单" id="tab-1" name="1"></el-tab-pane>
+                        <el-tab-pane label="已下架商品" id="tab-2" name="2"></el-tab-pane>
+                      <el-tab-pane label="我的收藏" id="tab-3" name="3"></el-tab-pane>
+                        <el-tab-pane label="已卖商品" id="tab-4" name="4"></el-tab-pane>
+                      <el-tab-pane label="已购商品" id="tab-5" name="5"></el-tab-pane>
                     </el-tabs>
                     <div class="idle-container-list">
                         <div v-for="(item,index) in dataList[activeName-1] " :key="index"  class="idle-container-list-item">
@@ -284,8 +284,16 @@
             this.getMyOrder();
             this.getMySoldIdle();
             this.getMyFavorite();
+
+
         },
-        methods: {
+      mounted() {
+        if(this.$route.query!=null){
+          this.activeName=(this.$route.query.activeName);
+          console.log("nowActiveName:"+(this.$route.query.activeName));
+        }
+      },
+      methods: {
             getMyFavorite(){
                 this.$api.getMyFavorite().then(res=>{
                     console.log('getMyFavorite',res);

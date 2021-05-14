@@ -35,9 +35,6 @@ export default {
 
   },
   methods: {
-    // toGithub(){
-    //   window.location.href = "https://github.com/Gxy-2001/NXX";
-    // },
 
     //注意items是一个数组,删除和添加其实都是调用splice方法
     //@param: addr 为图片的相对地址idView
