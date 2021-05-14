@@ -9,18 +9,33 @@
               <carousel></carousel>
               <hr>
             </div>
+
+            <div class="ad">
+              <div><img src="../../assets/ads/1.png" style="object-fit:scale-down"></div>
+              <div><img src="../../assets/ads/2.png" style="object-fit: scale-down"></div>
+              <div><img src="../../assets/ads/3.png" style="object-fit: scale-down"></div>
+            </div>
+
             <el-tabs v-model="labelName" @tab-click="handleClick">
-              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="0">全部</el-button>
-              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="1">二手书</el-button>
-              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="2">数码</el-button>
-              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="3">零食</el-button>
-              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="4">活动票</el-button>
-<!--              <el-tab-pane label="全部" name="0"></el-tab-pane>-->
-<!--              <el-tab-pane label="二手书" name="1"></el-tab-pane>-->
-<!--              <el-tab-pane label="数码" name="2"></el-tab-pane>-->
-<!--              <el-tab-pane label="零食" name="3"></el-tab-pane>-->
-<!--              <el-tab-pane label="活动票" name="4"></el-tab-pane>-->
-<!--              <el-tab-pane label="其他" name="5"></el-tab-pane>-->
+<!--              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="1">二手书</el-button>-->
+<!--              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="2">数码</el-button>-->
+<!--              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="3">零食</el-button>-->
+<!--              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="4">活动票</el-button>-->
+              <el-tab-pane name="0">
+                <el-button slot="label" type="primary" class="el-button" icon="el-icon-arrow-down" round name="0">全部</el-button>
+              </el-tab-pane>
+              <el-tab-pane name="1">
+                <el-button slot="label" type="primary" class="el-button" icon="el-icon-arrow-down" round name="1">图书</el-button>
+              </el-tab-pane>
+              <el-tab-pane name="2">
+                <el-button slot="label" type="primary" class="el-button" icon="el-icon-arrow-down" round name="2">数码</el-button>
+              </el-tab-pane>
+              <el-tab-pane name="3">
+                <el-button slot="label" type="primary" class="el-button" icon="el-icon-arrow-down" round name="3">零食</el-button>
+              </el-tab-pane>
+              <el-tab-pane name="4">
+                <el-button slot="label" type="primary" class="el-button" icon="el-icon-arrow-down" round name="4">活动票</el-button>
+              </el-tab-pane>
             </el-tabs>
 
             <div style="margin: 0 20px;">
@@ -259,6 +274,21 @@
       margin-left: 10%;
       margin-right: 10%;
     }
+
+    .ad{
+      display: flex;
+      justify-content: space-around;
+      height: 200px;
+      max-width: 100%;
+    }
+    .ad div{
+      width:30%;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    /*.el-button{*/
+    /*  border-bottom: 5px;*/
+    /*}*/
     /*按住按钮*/
     .el-button:active{
       background: #67C23A;

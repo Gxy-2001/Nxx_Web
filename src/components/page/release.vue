@@ -128,16 +128,16 @@
                 selectedOptions:[],
                 options2: [{
                     value: 1,
-                    label: '数码'
+                    label: '图书'
                 }, {
                     value: 2,
-                    label: '家电'
+                    label: '数码'
                 }, {
                     value: 3,
-                    label: '户外'
+                    label: '零食'
                 }, {
                     value: 4,
-                    label: '图书'
+                    label: '活动票'
                 }, {
                     value: 5,
                     label: '其他'

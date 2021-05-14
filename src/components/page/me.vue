@@ -77,11 +77,11 @@
               <!--第二部分-->
                 <div class="idle-container">
                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="我发布的" name="1"></el-tab-pane>
-                        <el-tab-pane label="我下架的" name="2"></el-tab-pane>
-                      <el-tab-pane label="我收藏的" name="3"></el-tab-pane>
-                        <el-tab-pane label="我卖出的" name="4"></el-tab-pane>
-                      <el-tab-pane label="我买到的" name="5"></el-tab-pane>
+                        <el-tab-pane label="我发布的" id="tab-1" name="1"></el-tab-pane>
+                        <el-tab-pane label="我下架的" id="tab-2" name="2"></el-tab-pane>
+                      <el-tab-pane label="我收藏的" id="tab-3" name="3"></el-tab-pane>
+                        <el-tab-pane label="我卖出的" id="tab-4" name="4"></el-tab-pane>
+                      <el-tab-pane label="我买到的" id="tab-5" name="5"></el-tab-pane>
                     </el-tabs>
                     <div class="idle-container-list">
                         <div v-for="(item,index) in dataList[activeName-1] " :key="index"  class="idle-container-list-item">

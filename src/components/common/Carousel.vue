@@ -2,8 +2,8 @@
 <template>
   <div>
     <el-carousel :interval="3000" arrow="hover" indicator-position="outside" height="450px" >
-      <el-carousel-item v-for="item in items" :key="item.id">
-        <img :src="item.idView" class="image">
+      <el-carousel-item v-for="item in items" :key="item.id" >
+        <img :src="item.idView" class="image" alt="加载失败">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -35,6 +35,10 @@ export default {
 
   },
   methods: {
+    // toGithub(){
+    //   window.location.href = "https://github.com/Gxy-2001/NXX";
+    // },
+
     //注意items是一个数组,删除和添加其实都是调用splice方法
     //@param: addr 为图片的相对地址idView
     addItem(addr){

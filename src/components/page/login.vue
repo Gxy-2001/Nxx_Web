@@ -1,7 +1,6 @@
 <template>
   <div>
     <app-head></app-head>
-    <app-body>
       <div class="login-container">
         <el-card class="box-card">
           <div class="login-body">
@@ -29,7 +28,6 @@
           </div>
         </el-card>
       </div>
-    </app-body>
     <app-foot></app-foot>
   </div>
 </template>
