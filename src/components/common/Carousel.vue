@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       items:[
+          // {id:0,idView:require("../../assets/Carousel/1.png")},
           {id:0,idView:require("../../assets/Carousel/1.png")},
         {id:1,idView:require("../../assets/Carousel/2.png")},
         {id:2,idView:require("../../assets/Carousel/3.png")},
@@ -35,17 +36,14 @@ export default {
   },
   methods: {
     //注意items是一个数组,删除和添加其实都是调用splice方法
-    addItem(){
-      let addr=this.input;
+    //@param: addr 为图片的相对地址idView
+    addItem(addr){
       let newItemID=this.items.length;
-      console.log(newItemID);
-      let newItem={id:newItemID,idView:require("../../assets/Carousel/4.png")};
+      // console.log(newItemID);
+      let newItem={id:newItemID,idView:require(addr)};
       this.items.splice(newItemID,0,newItem);
     },
-    deleteItem(){
-      let id=3;
-      // $("el-carousel__item").append(newItem);
-      // $(".el-carousel__container").addItem({id:newItemID,idView:require("../../assets/Carousel/1.png")})
+    deleteItem(id){
       this.items.splice(id,1);
     }
 
