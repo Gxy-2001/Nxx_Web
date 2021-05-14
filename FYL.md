@@ -1,6 +1,10 @@
-#### 0.运行须知
+#### 0.须知
 
-需要关闭eslint语法检查
+运行前提：需要关闭eslint语法检查
+
+carousel是走马灯（or轮播图的英文名），assets文件夹里的Carousel是4张轮播图的图片，style是ElementUI主题色（里面有一个紫色为主的，丑），logo.png是蓝色的nxx；
+
+在components里，common中的carousel是轮播图，carouselList是后台管理轮播图的页面
 
 #### 1.第一次更新
 
