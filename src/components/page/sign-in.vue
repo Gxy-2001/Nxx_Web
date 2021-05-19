@@ -6,7 +6,10 @@
     <div class="sign-in-container">
         <el-card class="box-card">
             <div class="sign-in-body">
-                <div class="sign-in-title">注册</div>
+                <div class="sign-in-title">
+                  <img src="../../assets/logo.png" alt="nxx" >
+                  <br>注册
+                </div>
                 <el-input placeholder="请输入昵称..." maxlength="30"  v-model="userInfo.nickname" class="sign-in-input" clearable>
                     <template slot="prepend">
                         <div class="el-icon-user-solid"></div>

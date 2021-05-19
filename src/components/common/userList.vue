@@ -139,9 +139,25 @@
         created() {
             this.getUserData();
         },
+      data(){
+        return {
+          mode:1,
+          nowPage: 1,
+          total: 63,
+          adminRegVisible: false,
+          adminAccount:'',
+          adminPassword:'',
+          adminRePassword:'',
+          adminName:'',
+          userData: [],
+          badUserData:[],
+          userManage:[],
+        }
+      },
         methods: {
             handleCurrentChange(val) {
                 this.nowPage = val;
+                //不同身份（页面标签）加载不同内容
                 if(this.mode == 1){
                     this.getUserData();
                 }
@@ -219,6 +235,7 @@
                     console.log(e)
                 })
             },
+            //封号
             sealUser(i){
                 console.log( this.userData[i].id);
                 this.$api.updateUserStatus({
@@ -234,6 +251,7 @@
                     console.log(e)
                 })
             },
+            //解封
             unsealUser(i){
                 this.$api.updateUserStatus({
                     id: this.badUserData[i].id,
@@ -249,6 +267,7 @@
                     console.log(e)
                 })
             },
+            //注册管理员账号
             regAdmin(){
                 if(this.adminPassword == this.adminRePassword){
                     this.$api.regAdministrator({
@@ -275,21 +294,7 @@
                 }
             },
         },
-        data(){
-            return {
-                mode:1,
-                nowPage: 1,
-                total: 63,
-                adminRegVisible: false,
-                adminAccount:'',
-                adminPassword:'',
-                adminRePassword:'',
-                adminName:'',
-                userData: [],
-                badUserData:[],
-                userManage:[],
-            }
-        },
+
     }
 </script>
 

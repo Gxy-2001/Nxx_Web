@@ -43,18 +43,18 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div class="fenye">
-                    <el-pagination
-                            background
-                            @current-change="handleCurrentChange"
-                            :current-page.sync="currentPage"
-                            :page-size="8"
-                            layout="prev, pager, next, jumper"
-                            :total="totalItem">
-                    </el-pagination>
-                </div>
             </div>
         </app-body>
+      <div class="fenye">
+        <el-pagination
+            background
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-size="8"
+            layout="prev, pager, next, jumper"
+            :total="totalItem">
+        </el-pagination>
+      </div>
       <app-foot></app-foot>
     </div>
 </template>
@@ -133,10 +133,11 @@
     }
 
     .fenye {
-        display: flex;
-        justify-content: center;
-        height: 60px;
-        align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      height: 60px;
     }
 
     .idle-title {

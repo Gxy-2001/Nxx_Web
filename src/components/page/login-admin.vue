@@ -34,7 +34,7 @@
       data() {
             return {
                 userForm: {
-                    accountNumber: 'admin',
+                    accountNumber: '111111',
                     adminPassword: '123456'
                 }
             };

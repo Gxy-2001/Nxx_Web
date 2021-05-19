@@ -50,7 +50,7 @@
                         </div>
                     </div>
 
-                    <!--新增联系方式-->
+                    <!--联系方式-->
                     <div>
                         <el-input
                                 class="release-idle-phoneNumber"
@@ -59,7 +59,7 @@
                                 show-word-limit>
                         </el-input>
                     </div>
-
+                    <!-- 上传图片-->
                     <div class="release-idle-container-picture">
                         <div class="release-idle-container-picture-title">上传闲置照片</div>
                         <el-upload
@@ -67,15 +67,16 @@
                                 :on-preview="fileHandlePreview"
                                 :on-remove="fileHandleRemove"
                                 :on-success="fileHandleSuccess"
-                                :show-file-list="showFileList"
                                 :limit="10"
                                 :on-exceed="handleExceed"
                                 accept="image/*"
                                 drag
                                 multiple>
-                            <i class="el-icon-upload"></i>
+                          <!--:show-file-list="showFileList"-->
+
+                          <i class="el-icon-upload"></i>
                             <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
-                          <div class="el-upload__tip" slot="tip">暂时只能上传jpg文件</div>
+                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb(ElementUI2特性)</div>
                         </el-upload>
                         <div class="picture-list">
                             <el-image style="width: 600px;margin-bottom: 2px;" fit="contain"
@@ -123,7 +124,7 @@
             return {
                 imgDialogVisible:false,
                 dialogImageUrl:'',
-                showFileList:true,
+                // showFileList:true,
                 options:options,
                 selectedOptions:[],
                 options2: [{
@@ -159,6 +160,7 @@
                 console.log(value);
                 this.idleItemInfo.idlePlace=value[1];
             },
+            //文件移除时
             fileHandleRemove(file, fileList) {
                 console.log(file, fileList);
                 for(let i=0;i<this.imgList.length;i++){
@@ -167,11 +169,13 @@
                     }
                 }
             },
+            //点击已上传的文件时
             fileHandlePreview(file) {
                 console.log(file);
                 this.dialogImageUrl=file.response.data;
                 this.imgDialogVisible=true;
             },
+            //文件成功上传时
             fileHandleSuccess(response, file, fileList){
                 //response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.length - 17))
               console.log("fileHandleSuccess",response.data)
@@ -214,6 +218,7 @@
                 }
 
             },
+            //超过10张图片限制
             handleExceed(files, fileList) {
                 this.$message.warning(`限制10张图片，本次选择了 ${files.length} 张图，共选择了 ${files.length + fileList.length} 张图`);
             },
