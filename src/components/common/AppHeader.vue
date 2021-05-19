@@ -21,9 +21,9 @@
 <!--几个按钮-->
             <div class="btns">
               <el-button type="primary" icon="el-icon-plus"  @click="toRelease">发布闲置</el-button>
-              <el-button type="primary" icon="el-icon-chat-dot-round" @click="toMessage">留言</el-button>
-              <el-button type="primary" icon="el-icon-document" v-if="!isLogin" @click="toLogin">登录</el-button>
-              <el-button type="primary" icon="el-icon-tickets" v-if="!isLogin" @click="toSignin">注册</el-button>
+              <el-button type="primary" icon="el-icon-chat-dot-round" v-if="IDforPage!==2" @click="toMessage">留言</el-button>
+              <el-button type="primary" icon="el-icon-document" v-if="!(isLogin||IDforPage===3)" @click="toLogin">登录</el-button>
+              <el-button type="primary" icon="el-icon-tickets" v-if="!(isLogin||IDforPage===4)" @click="toSignin">注册</el-button>
               <el-button type="primary" icon="el-icon-star-on" @click="toGithub">给个Star</el-button>
               <el-button type="danger" icon="el-icon-switch-button" v-if="isLogin" @click="loginOut">退出登录</el-button>
 
@@ -40,11 +40,11 @@
                 </div>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><div @click="toMe">个人中心</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe_IdleItem">发布清单</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe_Favorites">我的收藏</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe_Order">已购</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMe_Sold">已卖</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="toMessage">留言</div></el-dropdown-item>
+                  <el-dropdown-item v-if="!(IDforPage===1)"><div @click="toMe_IdleItem">发布清单</div></el-dropdown-item>
+                  <el-dropdown-item v-if="!(IDforPage===1)"><div @click="toMe_Favorites">我的收藏</div></el-dropdown-item>
+                  <el-dropdown-item v-if="!(IDforPage===1)"><div @click="toMe_Order">已购</div></el-dropdown-item>
+                  <el-dropdown-item v-if="!(IDforPage===1)"><div @click="toMe_Sold">已卖</div></el-dropdown-item>
+                  <el-dropdown-item v-if="!(IDforPage===2)"><div @click="toMessage">留言</div></el-dropdown-item>
                   <el-dropdown-item divided style="color: red;"><div @click="loginOut">退出登录</div></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -66,7 +66,8 @@
                 //https://img-host-service.oss-cn-shanghai.aliyuncs.com/avatar.jpg?versionId=CAEQIRiBgID784CFyxciIDk4N2U1M2I1NDBlNDRhOGJhOGIwOWVmNzgyMGRmZTYy
                 avatar:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
                 isLogin:false,
-              nowURL:''
+              IDforPage:0,
+              // nowPATH:''
             };
         },
         created(){
@@ -87,14 +88,30 @@
                 this.avatar=this.$globalData.userInfo.avatar;
                 this.isLogin=true;
             }
+            this.hideBtn()
         },
-        mounted() {
-          this.nowURL=window.location.href;
-          console.log(this.nowURL);
-          // if(this.nowURL)
-        },
-      //方法：第一个是搜索框控制，第二个是退出登录，其他都是跳转；
+
+      //方法：第一个是根据页面隐藏按钮，第二个是搜索框控制，第三个是退出登录，其他都是跳转；
         methods: {
+          //让 apphead 在不同页面隐藏一些按钮
+          hideBtn(){
+            let h=location.href;
+            let table=[
+              {id:0,pattern:''},//其他页面都显示
+              {id:1,pattern:'/#/me(?!s)'},//个人中心页面
+              {id:2,pattern:'/#/message'},//留言界面
+              {id:3,pattern:'/#/login'},//正常登录界面
+              {id:4,pattern:'/#/sign-in'},//正常注册界面
+            ]
+            for (let i = 1; i <table.length ; i++) {
+              if(h.search(table[i].pattern)!==-1){
+                this.IDforPage=table[i].id;
+                break;
+              }
+              this.IDforPage=0;
+            }
+            console.log(this.IDforPage);
+          },
 
           searchIdle() {
                 if ('/search' !== this.$route.path) {
@@ -125,21 +142,25 @@
             if ('/me' !== this.$route.path) {
               this.$router.push({path: '/me'});
             }
+            this.hideBtn();
           },
           toMe_IdleItem() {
             if ('/me' !== this.$route.path) {
               this.$router.push({path: '/me',query:{activeName:'1'}});
             }
+            this.hideBtn();
           },
           toMe_Favorites() {
             if ('/me' !== this.$route.path) {
               this.$router.push({path: '/me',query:{activeName:'3'}});
             }
+            this.hideBtn();
           },
           toMe_Sold() {
             if ('/me' !== this.$route.path) {
               this.$router.push({path: '/me',query:{activeName:'4'}});
             }
+            this.hideBtn();
           },
         toMe_Order() {
             //todo
@@ -147,25 +168,31 @@
             if ('/me' !== this.$route.path) {
               this.$router.push({path: '/me',query:{activeName:'5'}});
             }
-          },
+          this.hideBtn();
+
+        },
           toMessage(){
             if ('/message' !== this.$route.path) {
               this.$router.push({path: '/message'});
             }
+            this.hideBtn();
           },
           toRelease(){
             if ('/release' !== this.$route.path) {
               this.$router.push({path: '/release'});
             }
+            this.hideBtn();
           },
           toLogin(){
             this.$router.replace({path: '/login'});
+            this.hideBtn();
           },
           toGithub(){
             window.location.href = "https://github.com/Gxy-2001/NXX";
           },
           toSignin(){
             this.$router.replace({path: '/sign-in'});
+            this.hideBtn();
           },
         }
     };

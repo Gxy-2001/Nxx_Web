@@ -2,52 +2,68 @@
 <template>
   <div>
     <el-carousel :interval="3000" arrow="hover" indicator-position="outside" height="450px" >
-      <el-carousel-item v-for="item in items" :key="item.id" >
-        <img :src="item.idView" class="image" alt="加载失败">
+<!--      暂时方案。静态-->
+<!--      <el-carousel-item v-for="item in imgBox" :key="i">-->
+<!--        <img :src="imgBox[item.id].src" class="image" alt="加载失败">-->
+<!--      </el-carousel-item>-->
+      <!--        成熟方案-->
+        <el-carousel-item v-for="(url,i) in srcList" :key="i">
+        <img :src="url" class="image" alt="加载失败">
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
-//import
-import $ from 'jquery'
 export default {
-  name: "Carousel",
+  name: "",
   components: {
   },
 
   data() {
     return {
-      items:[
-          // {id:0,idView:require("../../assets/Carousel/1.png")},
-          {id:0,idView:require("../../assets/Carousel/1.png")},
-        {id:1,idView:require("../../assets/Carousel/2.png")},
-        {id:2,idView:require("../../assets/Carousel/3.png")},
-        {id:3,idView:require("../../assets/Carousel/4.png")},
-      ],
-      input:'',
+      total:0,
+      srcList:[],
+      nowPage:1,
+      carouselList:[],
+      imgBox:[
+        {id:0,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/1.png?versionId=CAEQIRiBgICRseeAzBciIGZiNmMwNjNmYWQ3NTQ5ZmM5MDBiZmMxYTU3YzMxY2Rj'},
+        {id:1,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/2.png?versionId=CAEQIRiBgMCIseeAzBciIDMyNDdjZDllNmU2ZDRkMDc5NjliZDQ2NmZlNjViYmUx',
+        },
+        {id:2,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/3.png?versionId=CAEQIRiBgMCRseeAzBciIGM4YjNjNzhmMThhZDQwMjU5NzUwY2Y4YWI0ODU4NjEz',
+        },
+        {id:3,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/4.png?versionId=CAEQIRiBgICJseeAzBciIDc5YTM5YThlZGViODRiMmY4NWM2OGQ4Mzc5ZDk0OGQz',
+        },
+      ]
     };
   },
   created() {
+    this.getCarousel();
   },
-  watch:{
-
-  },
+  watch:{},
   methods: {
+    getCarousel(){
+      this.$api.getCarouselListIndex({
+        page: this.nowPage,
+        nums:8
+      }).then(res => {
+        if(res.status_code==1){
+          this.carouselList = res.data.list;
+          this.total = res.data.count;
+          //console.log是debug用
+          console.log("carousel");
+          console.log(this.carouselList);
 
-    //注意items是一个数组,删除和添加其实都是调用splice方法
-    //@param: addr 为图片的相对地址idView
-    addItem(addr){
-      let newItemID=this.items.length;
-      // console.log(newItemID);
-      let newItem={id:newItemID,idView:require(addr)};
-      this.items.splice(newItemID,0,newItem);
+          this.srcList=this.carouselList.map(value=>value['carouselUrl']);
+          console.log("srcList");
+          console.log(this.srcList);
+        }else {
+          this.$message.error(res.msg)
+        }
+      }).catch(e => {
+        console.log(e)
+      })
     },
-    deleteItem(id){
-      this.items.splice(id,1);
-    }
-
 },
 }
 </script>

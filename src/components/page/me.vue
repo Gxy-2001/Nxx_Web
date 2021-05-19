@@ -250,6 +250,7 @@
                 userInfoDialogVisible: false,
                 notUserNicknameEdit: true,
                 userPasswordEdit: false,
+                //1\2\3:原密码、新密码、确认新密码
                 userPassword1: '',
                 userPassword2: '',
                 userPassword3: '',
@@ -266,6 +267,9 @@
             };
         },
         created() {
+          //debug用
+          // console.log(this.$globalData.userInfo);
+          
             if (!this.$globalData.userInfo.nickname) {
                 this.$api.getUserInfo().then(res => {
                     if (res.status_code === 1) {
@@ -288,9 +292,12 @@
 
         },
       mounted() {
-        if(this.$route.query!=null){
-          this.activeName=(this.$route.query.activeName);
-          console.log("nowActiveName:"+(this.$route.query.activeName));
+        if(this.$route.query!==undefined&&this.$route.query.activeName!==undefined){
+            this.activeName=(this.$route.query.activeName);
+            console.log("nowActiveName:"+(this.$route.query.activeName));
+        }
+        else{
+          this.activeName='1';
         }
       },
       methods: {

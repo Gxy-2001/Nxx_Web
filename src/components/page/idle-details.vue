@@ -48,7 +48,7 @@
                         {{idleItemInfo.idleDetails}}
                     </div>
                     <div class="details-picture">
-                        <el-image v-for="(imgUrl,i) in idleItemInfo.pictureList"
+                        <el-image v-for="(imgUrl,i)  in idleItemInfo.pictureList" :key="i"
                                   style="width: 90%;margin-bottom: 2px;"
                                   :src="imgUrl"
                                   fit="contain"></el-image>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div>
-                        <div v-for="(mes,index) in messageList" class="message-container-list">
+                        <div v-for="(mes,index) in messageList" :key="index" class="message-container-list">
                             <div class="message-container-list-left">
                                 <el-image
                                         style="width: 55px; height: 55px;border-radius: 5px;"
@@ -105,6 +105,7 @@
     import AppHead from '../common/AppHeader.vue';
     import AppBody from '../common/AppPageBody.vue'
     import AppFoot from '../common/AppFoot.vue'
+    import $ from 'jquery'
 
     export default {
         name: "idle-details",

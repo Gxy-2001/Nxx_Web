@@ -82,56 +82,56 @@
 
 <script>
     export default {
-        name: "orderList",
-        created() {
-            this.getOrder();
-        },
-        methods:{
-            getOrder(){
-                this.$api.getOrderList({
-                    page: this.nowPage,
-                    nums:8
-                }).then(res => {
-                    if(res.status_code==1){
-                        this.Order = res.data.list;
-                        this.total = res.data.count;
-                    }else {
-                        this.$message.error(res.msg)
-                    }
-
-                }).catch(e => {
-                    console.log(e)
-                })
-            },
-            deleteOrder(index){
-                this.$api.deleteOrder({
-                    id:this.Order[index].id
-                }).then(res=>{
-                    if(res.status_code==1){
-                        this.getOrder();
-                    }else {
-                        this.$message.error(res.msg)
-                    }
-
-                }).catch(e => {
-                    console.log(e)
-                })
-            },
-            handleCurrentChange(val) {
-                this.nowPage = val;
-                this.getOrder();
-            },
-        },
-        data(){
-            return {
-                mode:1,
-                nowPage: 1,
-                total: 0,
-                paymentStatus:['未支付','已支付'],
-                orderStatus:['待付款','待发货','待收货','已完成','已取消'],
-                Order: []
+      name: "orderList",
+      data(){
+        return {
+          mode:1,
+          nowPage: 1,
+          total: 0,
+          paymentStatus:['未支付','已支付'],
+          orderStatus:['待付款','待发货','待收货','已完成','已取消'],
+          Order: []
+        }
+      },
+      created() {
+        this.getOrder();
+      },
+      methods:{
+        getOrder(){
+          this.$api.getOrderList({
+            page: this.nowPage,
+            nums:8
+          }).then(res => {
+            if(res.status_code==1){
+              this.Order = res.data.list;
+              this.total = res.data.count;
+            }else {
+              this.$message.error(res.msg)
             }
+
+          }).catch(e => {
+            console.log(e)
+          })
         },
+        deleteOrder(index){
+          this.$api.deleteOrder({
+            id:this.Order[index].id
+          }).then(res=>{
+            if(res.status_code==1){
+              this.getOrder();
+            }else {
+              this.$message.error(res.msg)
+            }
+
+          }).catch(e => {
+            console.log(e)
+          })
+        },
+        handleCurrentChange(val) {
+          this.nowPage = val;
+          this.getOrder();
+        },
+      },
     }
 </script>
 

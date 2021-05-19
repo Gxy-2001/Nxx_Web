@@ -1,5 +1,6 @@
 import request from '../utils/request';
 
+//全局对象api封装了所有与后端通信的方法。
 const api = {
     userLogin(query) {
         return request({
@@ -303,18 +304,43 @@ const api = {
             params: query
         });
     },
-    getCarouselList(query) {
+
+    getCarouselListIndex(query) {
+        console.log("从首页访问轮播图");
         return request({
-            url: '/admin/carouselList',
+            url: '/admin/carousels/get',
             method: 'get',
             params: query
         });
     },
-    deleteCarouselPhoto(query) {
+
+    getCarouselList(query) {
+        console.log("从admin页面访问轮播图");
         return request({
-            url: '/admin/carouselList',
+            url: '/admin/carousels/list',
             method: 'get',
             params: query
+        });
+    },
+    deleteCarousel(query) {
+        return request({
+            url: '/admin/carousels/delete',
+            method: 'get',
+            params: query
+        });
+    },
+    addCarousel(data) {
+        return request({
+            url: '/admin/carousels/save',
+            method: 'post',
+            data: data
+        });
+    },
+    updateCarousel(data) {
+        return request({
+            url: '/admin/carousels/update',
+            method: 'post',
+            data: data
         });
     },
 };

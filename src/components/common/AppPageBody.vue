@@ -17,6 +17,12 @@
         margin-top: 80px;
         display: flex;
         justify-content: center;
+      width: 100%;
+      /*position: fixed;*/
+      left: 0;
+      right: 0;
+      background-color: #8EC5FC;
+      background-image: linear-gradient(0deg, #8EC5FC 0%, #E0C3FC 100%);
     }
     .main-content{
         width: 80%;
