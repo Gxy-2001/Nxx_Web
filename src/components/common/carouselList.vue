@@ -87,9 +87,24 @@
                         <el-input aria-placeholder="" v-model="form.url" disabled ></el-input>
                       </el-form-item>
 
-                      <el-form-item label="新地址" :label-width="LabelWidth">
-                        <el-input aria-placeholder="" v-model="form.newUrl"></el-input>
-                      </el-form-item>
+<!--                      <el-form-item label="新地址" :label-width="LabelWidth">-->
+<!--                        <el-input aria-placeholder="" v-model="form.newUrl"></el-input>-->
+<!--                      </el-form-item>-->
+
+                      <el-upload
+                          action="http://localhost:8090/file"
+                          :on-preview="fileHandlePreview"
+                          :on-remove="fileHandleRemove"
+                          :on-success="fileHandleSuccess"
+                          :limit="1"
+                          :on-exceed="handleExceed"
+                          accept="image/*">
+                        <!--:show-file-list="showFileList"-->
+
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text"><em>点击上传</em></div>
+                        <div class="el-upload__tip" slot="tip">只能上传图片文件，且不超过500kb(ElementUI2特性)</div>
+                      </el-upload>
 <!--跟后端交流有问题-->
 <!--                      <el-form-item label="上传照片">-->
 <!--                        <el-upload-->
@@ -108,6 +123,9 @@
 <!--                        </el-upload>-->
 <!--                      </el-form-item>-->
                     </el-form>
+                    <!-- 上传图片-->
+
+
                     <div slot="footer">
                       <el-button  @click="updateFormVisible = false">取 消</el-button>
                       <el-button type="primary"  @click="updateFormVisible = false;updateCarousel(form)">确 定</el-button>
@@ -291,24 +309,18 @@
           //文件移除
           fileHandleRemove(file, fileList) {
             console.log(file, fileList);
-            for(let i=0;i<this.imgList.length;i++){
-              if(this.imgList[i]===file.response.data){
-                this.imgList.splice(i,1);
-              }
-            }
           },
           //文件成功上传
           fileHandleSuccess(response, file, fileList){
-            //response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.length - 17))
             console.log("fileHandleSuccess",response.data)
             console.log("lastIndex",response.data.substr(response.data.lastIndexOf("file")))
-            response.data = "http://localhost:8090/img/".concat(response.data.substr(response.data.lastIndexOf("file")))
+            let url = "http://localhost:8090/img/".concat(response.data.substr(response.data.lastIndexOf("file")))
             console.log("file:",response,file,fileList);
-            this.imgList.push(response.data);
+            this.form.newUrl = url
           },
           //超出限制时
           handleExceed(files, fileList) {
-            this.$message.warning(`只能上传1张图片啊，这是轮播图！`);
+            this.$message.warning(`只能上传1张图片，这是轮播图!`);
           },
         },
 

@@ -76,7 +76,7 @@
 
                           <i class="el-icon-upload"></i>
                             <div class="el-upload__text">将图片拖到此处，或<em>点击上传</em></div>
-                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb(ElementUI2特性)</div>
+                          <div class="el-upload__tip" slot="tip">只能上传图片文件，且不超过500kb(ElementUI2特性)</div>
                         </el-upload>
                         <div class="picture-list">
                             <el-image style="width: 600px;margin-bottom: 2px;" fit="contain"

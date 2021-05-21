@@ -5,7 +5,8 @@ import ElementUI from 'element-ui';
 import $ from 'jquery'
 import 'element-ui/lib/theme-chalk/index.css';
 
- // import '../src/assets/style/purple/theme/index.css 紫色主题,太丑了——取消该行注释，注释上一行即可
+//import '../src/assets/style/purple/theme/index.css';// 紫色主题,太丑了——取消该行注释，注释上一行即可
+
 import 'babel-polyfill';
 
 import api from './api/index.js';

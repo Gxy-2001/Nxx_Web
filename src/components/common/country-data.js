@@ -1,4 +1,131 @@
-const options = [{
+const options = [
+    {
+        "value": "江苏省",
+        "label": "江苏省",
+        "children": [{
+            "value": "南京市",
+            "label": "南京市",
+            "children": [{"value": "玄武区", "label": "玄武区"}, {"value": "秦淮区", "label": "秦淮区"}, {
+                "value": "建邺区",
+                "label": "建邺区"
+            }, {"value": "鼓楼区", "label": "鼓楼区"}, {"value": "浦口区", "label": "浦口区"}, {
+                "value": "栖霞区",
+                "label": "栖霞区"
+            }, {"value": "雨花台区", "label": "雨花台区"}, {"value": "江宁区", "label": "江宁区"}, {
+                "value": "六合区",
+                "label": "六合区"
+            }, {"value": "溧水区", "label": "溧水区"}, {"value": "高淳区", "label": "高淳区"}]
+        }, {
+            "value": "无锡市",
+            "label": "无锡市",
+            "children": [{"value": "锡山区", "label": "锡山区"}, {"value": "惠山区", "label": "惠山区"}, {
+                "value": "滨湖区",
+                "label": "滨湖区"
+            }, {"value": "梁溪区", "label": "梁溪区"}, {"value": "新吴区", "label": "新吴区"}, {
+                "value": "江阴市",
+                "label": "江阴市"
+            }, {"value": "宜兴市", "label": "宜兴市"}]
+        }, {
+            "value": "徐州市",
+            "label": "徐州市",
+            "children": [{"value": "鼓楼区", "label": "鼓楼区"}, {"value": "云龙区", "label": "云龙区"}, {
+                "value": "贾汪区",
+                "label": "贾汪区"
+            }, {"value": "泉山区", "label": "泉山区"}, {"value": "铜山区", "label": "铜山区"}, {
+                "value": "丰县",
+                "label": "丰县"
+            }, {"value": "沛县", "label": "沛县"}, {"value": "睢宁县", "label": "睢宁县"}, {
+                "value": "新沂市",
+                "label": "新沂市"
+            }, {"value": "邳州市", "label": "邳州市"}]
+        }, {
+            "value": "常州市",
+            "label": "常州市",
+            "children": [{"value": "天宁区", "label": "天宁区"}, {"value": "钟楼区", "label": "钟楼区"}, {
+                "value": "新北区",
+                "label": "新北区"
+            }, {"value": "武进区", "label": "武进区"}, {"value": "金坛区", "label": "金坛区"}, {"value": "溧阳市", "label": "溧阳市"}]
+        }, {
+            "value": "苏州市",
+            "label": "苏州市",
+            "children": [{"value": "虎丘区", "label": "虎丘区"}, {"value": "吴中区", "label": "吴中区"}, {
+                "value": "相城区",
+                "label": "相城区"
+            }, {"value": "姑苏区", "label": "姑苏区"}, {"value": "吴江区", "label": "吴江区"}, {
+                "value": "常熟市",
+                "label": "常熟市"
+            }, {"value": "张家港市", "label": "张家港市"}, {"value": "昆山市", "label": "昆山市"}, {
+                "value": "太仓市",
+                "label": "太仓市"
+            }, {"value": "高新区", "label": "高新区"}, {"value": "工业园区", "label": "工业园区"}]
+        }, {
+            "value": "南通市",
+            "label": "南通市",
+            "children": [{"value": "崇川区", "label": "崇川区"}, {"value": "港闸区", "label": "港闸区"}, {
+                "value": "通州区",
+                "label": "通州区"
+            }, {"value": "海安县", "label": "海安县"}, {"value": "如东县", "label": "如东县"}, {
+                "value": "启东市",
+                "label": "启东市"
+            }, {"value": "如皋市", "label": "如皋市"}, {"value": "海门市", "label": "海门市"}]
+        }, {
+            "value": "连云港市",
+            "label": "连云港市",
+            "children": [{"value": "连云区", "label": "连云区"}, {"value": "海州区", "label": "海州区"}, {
+                "value": "赣榆区",
+                "label": "赣榆区"
+            }, {"value": "东海县", "label": "东海县"}, {"value": "灌云县", "label": "灌云县"}, {"value": "灌南县", "label": "灌南县"}]
+        }, {
+            "value": "淮安市",
+            "label": "淮安市",
+            "children": [{"value": "清江浦区", "label": "清江浦区"}, {"value": "淮安区", "label": "淮安区"}, {
+                "value": "淮阴区",
+                "label": "淮阴区"
+            }, {"value": "洪泽区", "label": "洪泽区"}, {"value": "涟水县", "label": "涟水县"}, {
+                "value": "盱眙县",
+                "label": "盱眙县"
+            }, {"value": "金湖县", "label": "金湖县"}]
+        }, {
+            "value": "盐城市",
+            "label": "盐城市",
+            "children": [{"value": "亭湖区", "label": "亭湖区"}, {"value": "盐都区", "label": "盐都区"}, {
+                "value": "大丰区",
+                "label": "大丰区"
+            }, {"value": "响水县", "label": "响水县"}, {"value": "滨海县", "label": "滨海县"}, {
+                "value": "阜宁县",
+                "label": "阜宁县"
+            }, {"value": "射阳县", "label": "射阳县"}, {"value": "建湖县", "label": "建湖县"}, {"value": "东台市", "label": "东台市"}]
+        }, {
+            "value": "扬州市",
+            "label": "扬州市",
+            "children": [{"value": "广陵区", "label": "广陵区"}, {"value": "邗江区", "label": "邗江区"}, {
+                "value": "江都区",
+                "label": "江都区"
+            }, {"value": "宝应县", "label": "宝应县"}, {"value": "仪征市", "label": "仪征市"}, {"value": "高邮市", "label": "高邮市"}]
+        }, {
+            "value": "镇江市",
+            "label": "镇江市",
+            "children": [{"value": "京口区", "label": "京口区"}, {"value": "润州区", "label": "润州区"}, {
+                "value": "丹徒区",
+                "label": "丹徒区"
+            }, {"value": "丹阳市", "label": "丹阳市"}, {"value": "扬中市", "label": "扬中市"}, {"value": "句容市", "label": "句容市"}]
+        }, {
+            "value": "泰州市",
+            "label": "泰州市",
+            "children": [{"value": "海陵区", "label": "海陵区"}, {"value": "高港区", "label": "高港区"}, {
+                "value": "姜堰区",
+                "label": "姜堰区"
+            }, {"value": "兴化市", "label": "兴化市"}, {"value": "靖江市", "label": "靖江市"}, {"value": "泰兴市", "label": "泰兴市"}]
+        }, {
+            "value": "宿迁市",
+            "label": "宿迁市",
+            "children": [{"value": "宿城区", "label": "宿城区"}, {"value": "宿豫区", "label": "宿豫区"}, {
+                "value": "沭阳县",
+                "label": "沭阳县"
+            }, {"value": "泗阳县", "label": "泗阳县"}, {"value": "泗洪县", "label": "泗洪县"}]
+        }]
+    },
+    {
     "value": "北京市",
     "label": "北京市",
     "children": [{
@@ -21,7 +148,8 @@ const options = [{
             "label": "密云区"
         }, {"value": "延庆区", "label": "延庆区"}]
     }]
-}, {
+},
+    {
     "value": "天津市",
     "label": "天津市",
     "children": [{
@@ -44,7 +172,8 @@ const options = [{
             "label": "静海区"
         }, {"value": "蓟州区", "label": "蓟州区"}]
     }]
-}, {
+},
+    {
     "value": "河北省",
     "label": "河北省",
     "children": [{
@@ -242,7 +371,8 @@ const options = [{
             "label": "景县"
         }, {"value": "阜城县", "label": "阜城县"}, {"value": "深州市", "label": "深州市"}]
     }]
-}, {
+},
+    {
     "value": "山西省",
     "label": "山西省",
     "children": [{
@@ -389,7 +519,8 @@ const options = [{
             "label": "孝义市"
         }, {"value": "汾阳市", "label": "汾阳市"}]
     }]
-}, {
+},
+    {
     "value": "内蒙古自治区",
     "label": "内蒙古自治区",
     "children": [{
@@ -525,7 +656,8 @@ const options = [{
             "label": "额济纳旗"
         }]
     }]
-}, {
+},
+    {
     "value": "辽宁省",
     "label": "辽宁省",
     "children": [{
@@ -666,7 +798,8 @@ const options = [{
             "label": "南票区"
         }, {"value": "绥中县", "label": "绥中县"}, {"value": "建昌县", "label": "建昌县"}, {"value": "兴城市", "label": "兴城市"}]
     }]
-}, {
+},
+    {
     "value": "吉林省",
     "label": "吉林省",
     "children": [{
@@ -754,7 +887,8 @@ const options = [{
             "label": "和龙市"
         }, {"value": "汪清县", "label": "汪清县"}, {"value": "安图县", "label": "安图县"}]
     }]
-}, {
+},
+    {
     "value": "黑龙江省",
     "label": "黑龙江省",
     "children": [{
@@ -918,7 +1052,8 @@ const options = [{
             "label": "塔河县"
         }, {"value": "漠河县", "label": "漠河县"}]
     }]
-}, {
+},
+    {
     "value": "上海市",
     "label": "上海市",
     "children": [{
@@ -941,132 +1076,8 @@ const options = [{
             "label": "奉贤区"
         }, {"value": "崇明区", "label": "崇明区"}]
     }]
-}, {
-    "value": "江苏省",
-    "label": "江苏省",
-    "children": [{
-        "value": "南京市",
-        "label": "南京市",
-        "children": [{"value": "玄武区", "label": "玄武区"}, {"value": "秦淮区", "label": "秦淮区"}, {
-            "value": "建邺区",
-            "label": "建邺区"
-        }, {"value": "鼓楼区", "label": "鼓楼区"}, {"value": "浦口区", "label": "浦口区"}, {
-            "value": "栖霞区",
-            "label": "栖霞区"
-        }, {"value": "雨花台区", "label": "雨花台区"}, {"value": "江宁区", "label": "江宁区"}, {
-            "value": "六合区",
-            "label": "六合区"
-        }, {"value": "溧水区", "label": "溧水区"}, {"value": "高淳区", "label": "高淳区"}]
-    }, {
-        "value": "无锡市",
-        "label": "无锡市",
-        "children": [{"value": "锡山区", "label": "锡山区"}, {"value": "惠山区", "label": "惠山区"}, {
-            "value": "滨湖区",
-            "label": "滨湖区"
-        }, {"value": "梁溪区", "label": "梁溪区"}, {"value": "新吴区", "label": "新吴区"}, {
-            "value": "江阴市",
-            "label": "江阴市"
-        }, {"value": "宜兴市", "label": "宜兴市"}]
-    }, {
-        "value": "徐州市",
-        "label": "徐州市",
-        "children": [{"value": "鼓楼区", "label": "鼓楼区"}, {"value": "云龙区", "label": "云龙区"}, {
-            "value": "贾汪区",
-            "label": "贾汪区"
-        }, {"value": "泉山区", "label": "泉山区"}, {"value": "铜山区", "label": "铜山区"}, {
-            "value": "丰县",
-            "label": "丰县"
-        }, {"value": "沛县", "label": "沛县"}, {"value": "睢宁县", "label": "睢宁县"}, {
-            "value": "新沂市",
-            "label": "新沂市"
-        }, {"value": "邳州市", "label": "邳州市"}]
-    }, {
-        "value": "常州市",
-        "label": "常州市",
-        "children": [{"value": "天宁区", "label": "天宁区"}, {"value": "钟楼区", "label": "钟楼区"}, {
-            "value": "新北区",
-            "label": "新北区"
-        }, {"value": "武进区", "label": "武进区"}, {"value": "金坛区", "label": "金坛区"}, {"value": "溧阳市", "label": "溧阳市"}]
-    }, {
-        "value": "苏州市",
-        "label": "苏州市",
-        "children": [{"value": "虎丘区", "label": "虎丘区"}, {"value": "吴中区", "label": "吴中区"}, {
-            "value": "相城区",
-            "label": "相城区"
-        }, {"value": "姑苏区", "label": "姑苏区"}, {"value": "吴江区", "label": "吴江区"}, {
-            "value": "常熟市",
-            "label": "常熟市"
-        }, {"value": "张家港市", "label": "张家港市"}, {"value": "昆山市", "label": "昆山市"}, {
-            "value": "太仓市",
-            "label": "太仓市"
-        }, {"value": "高新区", "label": "高新区"}, {"value": "工业园区", "label": "工业园区"}]
-    }, {
-        "value": "南通市",
-        "label": "南通市",
-        "children": [{"value": "崇川区", "label": "崇川区"}, {"value": "港闸区", "label": "港闸区"}, {
-            "value": "通州区",
-            "label": "通州区"
-        }, {"value": "海安县", "label": "海安县"}, {"value": "如东县", "label": "如东县"}, {
-            "value": "启东市",
-            "label": "启东市"
-        }, {"value": "如皋市", "label": "如皋市"}, {"value": "海门市", "label": "海门市"}]
-    }, {
-        "value": "连云港市",
-        "label": "连云港市",
-        "children": [{"value": "连云区", "label": "连云区"}, {"value": "海州区", "label": "海州区"}, {
-            "value": "赣榆区",
-            "label": "赣榆区"
-        }, {"value": "东海县", "label": "东海县"}, {"value": "灌云县", "label": "灌云县"}, {"value": "灌南县", "label": "灌南县"}]
-    }, {
-        "value": "淮安市",
-        "label": "淮安市",
-        "children": [{"value": "清江浦区", "label": "清江浦区"}, {"value": "淮安区", "label": "淮安区"}, {
-            "value": "淮阴区",
-            "label": "淮阴区"
-        }, {"value": "洪泽区", "label": "洪泽区"}, {"value": "涟水县", "label": "涟水县"}, {
-            "value": "盱眙县",
-            "label": "盱眙县"
-        }, {"value": "金湖县", "label": "金湖县"}]
-    }, {
-        "value": "盐城市",
-        "label": "盐城市",
-        "children": [{"value": "亭湖区", "label": "亭湖区"}, {"value": "盐都区", "label": "盐都区"}, {
-            "value": "大丰区",
-            "label": "大丰区"
-        }, {"value": "响水县", "label": "响水县"}, {"value": "滨海县", "label": "滨海县"}, {
-            "value": "阜宁县",
-            "label": "阜宁县"
-        }, {"value": "射阳县", "label": "射阳县"}, {"value": "建湖县", "label": "建湖县"}, {"value": "东台市", "label": "东台市"}]
-    }, {
-        "value": "扬州市",
-        "label": "扬州市",
-        "children": [{"value": "广陵区", "label": "广陵区"}, {"value": "邗江区", "label": "邗江区"}, {
-            "value": "江都区",
-            "label": "江都区"
-        }, {"value": "宝应县", "label": "宝应县"}, {"value": "仪征市", "label": "仪征市"}, {"value": "高邮市", "label": "高邮市"}]
-    }, {
-        "value": "镇江市",
-        "label": "镇江市",
-        "children": [{"value": "京口区", "label": "京口区"}, {"value": "润州区", "label": "润州区"}, {
-            "value": "丹徒区",
-            "label": "丹徒区"
-        }, {"value": "丹阳市", "label": "丹阳市"}, {"value": "扬中市", "label": "扬中市"}, {"value": "句容市", "label": "句容市"}]
-    }, {
-        "value": "泰州市",
-        "label": "泰州市",
-        "children": [{"value": "海陵区", "label": "海陵区"}, {"value": "高港区", "label": "高港区"}, {
-            "value": "姜堰区",
-            "label": "姜堰区"
-        }, {"value": "兴化市", "label": "兴化市"}, {"value": "靖江市", "label": "靖江市"}, {"value": "泰兴市", "label": "泰兴市"}]
-    }, {
-        "value": "宿迁市",
-        "label": "宿迁市",
-        "children": [{"value": "宿城区", "label": "宿城区"}, {"value": "宿豫区", "label": "宿豫区"}, {
-            "value": "沭阳县",
-            "label": "沭阳县"
-        }, {"value": "泗阳县", "label": "泗阳县"}, {"value": "泗洪县", "label": "泗洪县"}]
-    }]
-}, {
+},
+    {
     "value": "浙江省",
     "label": "浙江省",
     "children": [{
@@ -1180,7 +1191,8 @@ const options = [{
             "label": "云和县"
         }, {"value": "庆元县", "label": "庆元县"}, {"value": "景宁畲族自治县", "label": "景宁畲族自治县"}, {"value": "龙泉市", "label": "龙泉市"}]
     }]
-}, {
+},
+    {
     "value": "安徽省",
     "label": "安徽省",
     "children": [{
@@ -1329,7 +1341,8 @@ const options = [{
             "label": "旌德县"
         }, {"value": "宁国市", "label": "宁国市"}]
     }]
-}, {
+},
+    {
     "value": "福建省",
     "label": "福建省",
     "children": [{
@@ -1435,7 +1448,8 @@ const options = [{
             "label": "周宁县"
         }, {"value": "柘荣县", "label": "柘荣县"}, {"value": "福安市", "label": "福安市"}, {"value": "福鼎市", "label": "福鼎市"}]
     }]
-}, {
+},
+    {
     "value": "江西省",
     "label": "江西省",
     "children": [{
@@ -1564,7 +1578,8 @@ const options = [{
             "label": "鄱阳县"
         }, {"value": "万年县", "label": "万年县"}, {"value": "婺源县", "label": "婺源县"}, {"value": "德兴市", "label": "德兴市"}]
     }]
-}, {
+},
+    {
     "value": "山东省",
     "label": "山东省",
     "children": [{
@@ -1738,7 +1753,8 @@ const options = [{
             "label": "巨野县"
         }, {"value": "郓城县", "label": "郓城县"}, {"value": "鄄城县", "label": "鄄城县"}, {"value": "东明县", "label": "东明县"}]
     }]
-}, {
+},
+    {
     "value": "河南省",
     "label": "河南省",
     "children": [{
@@ -1949,7 +1965,8 @@ const options = [{
             "label": "王屋镇"
         }, {"value": "下冶镇", "label": "下冶镇"}]
     }]
-}, {
+},
+    {
     "value": "湖北省",
     "label": "湖北省",
     "children": [{
@@ -2177,7 +2194,8 @@ const options = [{
             "label": "九湖镇"
         }, {"value": "宋洛乡", "label": "宋洛乡"}, {"value": "下谷坪土家族乡", "label": "下谷坪土家族乡"}]
     }]
-}, {
+},
+    {
     "value": "湖南省",
     "label": "湖南省",
     "children": [{
@@ -2327,7 +2345,8 @@ const options = [{
             "label": "古丈县"
         }, {"value": "永顺县", "label": "永顺县"}, {"value": "龙山县", "label": "龙山县"}]
     }]
-}, {
+},
+    {
     "value": "广东省",
     "label": "广东省",
     "children": [{
@@ -2556,7 +2575,8 @@ const options = [{
             "label": "新兴县"
         }, {"value": "郁南县", "label": "郁南县"}, {"value": "罗定市", "label": "罗定市"}]
     }]
-}, {
+},
+    {
     "value": "广西壮族自治区",
     "label": "广西壮族自治区",
     "children": [{
@@ -2703,7 +2723,8 @@ const options = [{
             "label": "天等县"
         }, {"value": "凭祥市", "label": "凭祥市"}]
     }]
-}, {
+},
+    {
     "value": "海南省",
     "label": "海南省",
     "children": [{
@@ -2995,7 +3016,8 @@ const options = [{
             "label": "国营红林农场"
         }, {"value": "国营霸王岭林场", "label": "国营霸王岭林场"}, {"value": "海南矿业联合有限公司", "label": "海南矿业联合有限公司"}]
     }]
-}, {
+},
+    {
     "value": "重庆市",
     "label": "重庆市",
     "children": [{
@@ -3039,7 +3061,8 @@ const options = [{
             "label": "秀山土家族苗族自治县"
         }, {"value": "酉阳土家族苗族自治县", "label": "酉阳土家族苗族自治县"}, {"value": "彭水苗族土家族自治县", "label": "彭水苗族土家族自治县"}]
     }]
-}, {
+},
+    {
     "value": "四川省",
     "label": "四川省",
     "children": [{
@@ -3268,7 +3291,8 @@ const options = [{
             "label": "甘洛县"
         }, {"value": "美姑县", "label": "美姑县"}, {"value": "雷波县", "label": "雷波县"}]
     }]
-}, {
+},
+    {
     "value": "贵州省",
     "label": "贵州省",
     "children": [{
@@ -3383,7 +3407,8 @@ const options = [{
             "label": "长顺县"
         }, {"value": "龙里县", "label": "龙里县"}, {"value": "惠水县", "label": "惠水县"}, {"value": "三都水族自治县", "label": "三都水族自治县"}]
     }]
-}, {
+},
+    {
     "value": "云南省",
     "label": "云南省",
     "children": [{
@@ -3559,7 +3584,8 @@ const options = [{
             "label": "维西傈僳族自治县"
         }]
     }]
-}, {
+},
+    {
     "value": "西藏自治区",
     "label": "西藏自治区",
     "children": [{
@@ -3651,7 +3677,8 @@ const options = [{
             "label": "改则县"
         }, {"value": "措勤县", "label": "措勤县"}]
     }]
-}, {
+},
+    {
     "value": "陕西省",
     "label": "陕西省",
     "children": [{
@@ -3785,7 +3812,8 @@ const options = [{
             "label": "镇安县"
         }, {"value": "柞水县", "label": "柞水县"}]
     }]
-}, {
+},
+    {
     "value": "甘肃省",
     "label": "甘肃省",
     "children": [{
@@ -3911,7 +3939,8 @@ const options = [{
             "label": "玛曲县"
         }, {"value": "碌曲县", "label": "碌曲县"}, {"value": "夏河县", "label": "夏河县"}]
     }]
-}, {
+},
+    {
     "value": "青海省",
     "label": "青海省",
     "children": [{
@@ -3980,7 +4009,8 @@ const options = [{
             "label": "海西蒙古族藏族自治州直辖"
         }]
     }]
-}, {
+},
+    {
     "value": "宁夏回族自治区",
     "label": "宁夏回族自治区",
     "children": [{
@@ -4019,7 +4049,8 @@ const options = [{
             "label": "海原县"
         }]
     }]
-}, {
+},
+    {
     "value": "新疆维吾尔自治区",
     "label": "新疆维吾尔自治区",
     "children": [{
@@ -4253,7 +4284,8 @@ const options = [{
             "label": "策勒县"
         }]
     }]
-}, {
+},
+    {
     "value": "台湾省",
     "label": "台湾省",
     "children": [{
@@ -4613,7 +4645,8 @@ const options = [{
             "label": "田中"
         }, {"value": "田尾", "label": "田尾"}, {"value": "永靖", "label": "永靖"}, {"value": "员林", "label": "员林"}]
     }]
-}, {
+},
+    {
     "value": "香港特别行政区",
     "label": "香港特别行政区",
     "children": [{
@@ -4636,7 +4669,8 @@ const options = [{
             "label": "西贡区"
         }, {"value": "沙田区", "label": "沙田区"}, {"value": "葵青区", "label": "葵青区"}, {"value": "离岛区", "label": "离岛区"}]
     }]
-}, {
+},
+    {
     "value": "澳门特别行政区",
     "label": "澳门特别行政区",
     "children": [{
