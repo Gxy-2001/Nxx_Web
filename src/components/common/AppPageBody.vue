@@ -1,4 +1,5 @@
 <template>
+<!-- 一个容器，主要是为了设置颜色和flex布局-->
     <div class="main-container">
         <div class="main-content">
             <slot></slot>

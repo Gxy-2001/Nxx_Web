@@ -4,8 +4,7 @@ import router from './router';
 import ElementUI from 'element-ui';
 import $ from 'jquery'
 import 'element-ui/lib/theme-chalk/index.css';
-
-//import '../src/assets/style/purple/theme/index.css';// 紫色主题,太丑了——取消该行注释，注释上一行即可
+//import '../src/assets/style/purple/theme/index.css';// ElementUI的紫色自定义主题,太丑了——如果想使用，取消该行注释，注释上一行即可——但真的丑
 
 import 'babel-polyfill';
 
@@ -25,21 +24,25 @@ let sta = {
 
 //全局变量区域
 
-//全局可见的 对象 api——包含所有与后端交互的方法
+//全局可见的对象 api——封装了与后端交互的方法
 Vue.prototype.$api = api;
 
 Vue.prototype.$sta = sta;
 
 Vue.prototype.$globalData = globalData;
 
-Vue.config.productionTip = false;
+
+//开发环境下，Vue 会提供很多警告来帮你对付常见的错误与陷阱。
+//而在生产环境下，这些警告语句没有用，反而会增加应用的体积。此外，有些警告检查还有一些小的运行时开销，这在生产环境模式下是可以避免的。
+Vue.config.productionTip = false;//阻止启动生产消息。
 
 //引入ElementUI组件库
 Vue.use(ElementUI, {
     size: 'medium'
 });
 
-//未登录跳转到登录页面
+//未登录时点击 发布闲置/个人信息/订单，等会重定向至login页面
+// 录跳转到登录页面
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title}`;
     // console.log(to.path,'userInfo:',Vue.prototype.$globalData.userInfo);

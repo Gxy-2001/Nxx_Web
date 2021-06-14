@@ -1,21 +1,24 @@
 <template>
     <div>
       <div>
+        <!--AppHeader组件-->
         <app-head></app-head>
+
         <app-body>
           <div style="min-height: 200vh;" class="container">
-
+            <!--轮播图-->
             <div class="carousel">
               <carousel></carousel>
               <hr>
             </div>
-
+            <!--一些为了好看的花哨图片，图片素材来自淘宝-->
             <div class="ad">
               <div><img src="../../assets/ads/1.png" style="object-fit:scale-down"></div>
               <div><img src="../../assets/ads/2.png" style="object-fit: scale-down"></div>
               <div><img src="../../assets/ads/3.png" style="object-fit: scale-down"></div>
             </div>
 
+            <!--   el标签页         -->
             <el-tabs v-model="labelName" @tab-click="handleClick">
 <!--              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="1">二手书</el-button>-->
 <!--              <el-button type="primary" class="el-button" icon="el-icon-arrow-down" round name="2">数码</el-button>-->
@@ -38,6 +41,7 @@
               </el-tab-pane>
             </el-tabs>
 
+            <!--首页商品列表-->
             <div style="margin: 0 20px;">
               <el-row :gutter="30">
                 <el-col :span="6" v-for="(idle,index) in idleList" :key="index">
@@ -79,6 +83,8 @@
             </div>
           </div>
         </app-body>
+
+        <!--翻页-->
         <div class="fenye">
           <el-pagination
               background
@@ -89,6 +95,7 @@
               :total="totalItem">
           </el-pagination>
         </div>
+        <!--AppFoot组件-->
         <app-foot></app-foot>
       </div>
     </div>
@@ -207,7 +214,9 @@
 </script>
 
 <style scoped>
-
+/*
+flex弹性布局
+*/
     .idle-card {
         height: 300px;
         border: #eeeeee solid 1px;

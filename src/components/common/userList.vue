@@ -1,5 +1,6 @@
 <template>
     <div class="main-border">
+      <!--el-menu导航菜单-->
         <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item index="1">正常用户</el-menu-item>
             <el-menu-item index="2">违规用户</el-menu-item>
@@ -26,6 +27,8 @@
                 </el-dialog>
             </div>
         </el-menu>
+
+      <!--el-表格，正常用户-->
         <el-table v-show="this.mode == 1"
                   :data="userData"
                   stripe
@@ -64,7 +67,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-table v-show="this.mode == 2"
+
+      <!--el-表格，违规用户-->
+      <el-table v-show="this.mode == 2"
                   :data="badUserData"
                   stripe
                   style="width: 100%;color: #5a5c61;">
@@ -104,7 +109,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-table  v-show="this.mode == 3"
+
+      <!--el-表格，管理员-->
+      <el-table  v-show="this.mode == 3"
                 :data="userManage"
                 stripe
                 style="width: 100%;color: #5a5c61;">
@@ -120,6 +127,8 @@
                     >
             </el-table-column>
         </el-table>
+
+      <!-- 翻页-->
         <div class="block">
             <el-pagination
                     @current-change="handleCurrentChange"

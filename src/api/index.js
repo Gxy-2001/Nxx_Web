@@ -1,7 +1,13 @@
 import request from '../utils/request';
 
-//全局对象api封装了所有与后端通信的方法。
+/**
+ * Axios实现restful风格
+ * api对象定义在 main.js中
+ * 封装了所有与后端通信的方法。
+ *
+ */
 const api = {
+    //登录
     userLogin(query) {
         return request({
             url: '/user/login',
@@ -9,6 +15,7 @@ const api = {
             params: query
         });
     },
+    //登出
     logout(query) {
         return request({
             url: '/user/logout',
@@ -16,6 +23,7 @@ const api = {
             params: query
         });
     },
+    //注册
     signIn(data) {
         return request({
             url: '/user/sign-in',
@@ -23,6 +31,7 @@ const api = {
             data: data
         });
     },
+    //获取用户信息
     getUserInfo(query) {
         return request({
             url: '/user/info',
@@ -30,6 +39,7 @@ const api = {
             params: query
         });
     },
+    //更新用户信息
     updateUserPublicInfo(data) {
         return request({
             url: '/user/info',
@@ -37,6 +47,7 @@ const api = {
             data: data
         });
     },
+    //更新用户密码
     updatePassword(query) {
         return request({
             url: '/user/password',
@@ -44,6 +55,7 @@ const api = {
             params: query
         });
     },
+    //添加收货地址
     addAddress(data) {
         return request({
             url: '/address/add',
@@ -51,6 +63,7 @@ const api = {
             data: data
         });
     },
+    //查询收货地址
     getAddress(query) {
         return request({
             url: '/address/info',
@@ -58,6 +71,7 @@ const api = {
             params: query
         });
     },
+    //更新收货地址
     updateAddress(data) {
         return request({
             url: '/address/update',
@@ -65,6 +79,7 @@ const api = {
             data: data
         });
     },
+    //删除收货地址
     deleteAddress(data) {
         return request({
             url: '/address/delete',
@@ -72,6 +87,7 @@ const api = {
             data: data
         });
     },
+    //添加商品
     addIdleItem(data) {
         return request({
             url: '/idle/add',
@@ -79,6 +95,7 @@ const api = {
             data: data
         });
     },
+    //以下方法都用于查询商品
     getIdleItem(query) {
         return request({
             url: '/idle/info',
@@ -114,6 +131,7 @@ const api = {
             data: data
         });
     },
+    //添加订单
     addOrder(data) {
         return request({
             url: '/order/add',
@@ -121,6 +139,7 @@ const api = {
             data: data
         });
     },
+    //获取订单
     getOrder(query) {
         return request({
             url: '/order/info',
@@ -128,6 +147,7 @@ const api = {
             params: query
         });
     },
+    //更新订单
     updateOrder(data) {
         return request({
             url: '/order/update',
@@ -135,6 +155,7 @@ const api = {
             data: data
         });
     },
+    //查询属于用户的订单
     getMyOrder(query) {
         return request({
             url: '/order/my',
@@ -142,6 +163,7 @@ const api = {
             params: query
         });
     },
+    //查询属于用户已卖商品
     getMySoldIdle(query) {
         return request({
             url: '/order/my-sold',
@@ -149,6 +171,7 @@ const api = {
             params: query
         });
     },
+    //添加订单的收货地址
     addOrderAddress(data) {
         return request({
             url: '/order-address/add',
@@ -156,6 +179,7 @@ const api = {
             data: data
         });
     },
+    //更新订单的收货地址
     updateOrderAddress(data) {
         return request({
             url: '/order-address/update',
@@ -163,6 +187,7 @@ const api = {
             data: data
         });
     },
+    //获取订单的收货地址
     getOrderAddress(query) {
         return request({
             url: '/order-address/info',
@@ -170,6 +195,7 @@ const api = {
             params: query
         });
     },
+    //添加到收藏
     addFavorite(data) {
         return request({
             url: '/favorite/add',
@@ -177,6 +203,7 @@ const api = {
             data: data
         });
     },
+    //查询我的收藏
     getMyFavorite(query) {
         return request({
             url: '/favorite/my',
@@ -184,6 +211,7 @@ const api = {
             params: query
         });
     },
+    //删除我的收藏
     deleteFavorite(query) {
         return request({
             url: '/favorite/delete',
@@ -198,6 +226,7 @@ const api = {
             params: query
         });
     },
+    //发送留言
     sendMessage(data) {
         return request({
             url: '/message/send',
@@ -205,6 +234,7 @@ const api = {
             data: data
         });
     },
+    //获取留言
     getMessage(query) {
         return request({
             url: '/message/info',
@@ -226,6 +256,7 @@ const api = {
             params: query
         });
     },
+    //删除留言
     deleteMessage(query) {
         return request({
             url: '/message/delete',
@@ -233,6 +264,8 @@ const api = {
             params: query
         });
     },
+    //以下都是后台管理页面的方法
+    //后台获取商品列表
     getGoods(query) {
         return request({
             url: '/admin/idleList',
@@ -240,6 +273,7 @@ const api = {
             params: query
         });
     },
+    //通过后台更新商品
     updateGoods(query) {
         return request({
             url: '/admin/updateIdleStatus',
@@ -247,7 +281,7 @@ const api = {
             params: query
         });
     },
-
+    //后台获取订单列表
     getOrderList(query) {
         return request({
             url: '/admin/orderList',
@@ -255,6 +289,7 @@ const api = {
             params: query
         });
     },
+    //后台删除订单列表
     deleteOrder(query) {
         return request({
             url: '/admin/deleteOrder',
@@ -262,6 +297,7 @@ const api = {
             params: query
         });
     },
+    //后台获取用户列表
     getUserData(query) {
         return request({
             url: '/admin/userList',
@@ -276,6 +312,7 @@ const api = {
             params: query
         });
     },
+    //后台更新用户状态（是否封号
     updateUserStatus(query){
         return request({
             url: '/admin/updateUserStatus',
@@ -283,6 +320,7 @@ const api = {
             params: query
         });
     },
+    //添加后台账号
     regAdministrator(data){
         return request({
             url: '/admin/add',
@@ -290,6 +328,7 @@ const api = {
             data: data
         });
     },
+    //后台登录
     adminLogin(query) {
         return request({
             url: '/admin/login',
@@ -304,9 +343,9 @@ const api = {
             params: query
         });
     },
-
+    //轮播图相关
     getCarouselListIndex(query) {
-        console.log("从首页访问轮播图");
+        // console.log("从首页访问轮播图");
         return request({
             url: '/admin/carousels/get',
             method: 'get',
@@ -315,7 +354,7 @@ const api = {
     },
 
     getCarouselList(query) {
-        console.log("从admin页面访问轮播图");
+        // console.log("从admin页面访问轮播图");
         return request({
             url: '/admin/carousels/list',
             method: 'get',
@@ -345,5 +384,5 @@ const api = {
     },
 };
 
-
+//在创建JavaScript模块时，export 语句用于从模块中导出实时绑定的函数、对象或原始值，以便其他程序可以通过 import 语句使用它们。
 export default api;

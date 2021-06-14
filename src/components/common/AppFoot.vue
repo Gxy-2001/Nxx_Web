@@ -23,7 +23,4 @@
         color: #999999;
         font-size: 14px;
     }
-    a{
-
-    }
 </style>

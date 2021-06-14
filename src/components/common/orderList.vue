@@ -1,5 +1,6 @@
 <template>
     <div class="main-border">
+<!--      ElementUINB！-->
         <el-table
                 :data="Order"
                 stripe
@@ -67,6 +68,7 @@
                 </template>
             </el-table-column>
         </el-table>
+<!--翻页-->
         <div class="block">
             <el-pagination
                     @current-change="handleCurrentChange"
@@ -97,6 +99,7 @@
         this.getOrder();
       },
       methods:{
+        //查询订单
         getOrder(){
           this.$api.getOrderList({
             page: this.nowPage,
@@ -113,6 +116,7 @@
             console.log(e)
           })
         },
+        //删除
         deleteOrder(index){
           this.$api.deleteOrder({
             id:this.Order[index].id
@@ -127,6 +131,7 @@
             console.log(e)
           })
         },
+        //更新页数
         handleCurrentChange(val) {
           this.nowPage = val;
           this.getOrder();

@@ -6,7 +6,7 @@
 
 <style>
 html, body, #app{
-  /**/
+  /*溢出元素是否可见*/
   overflow: visible;
   /*overflow: hidden;*/
 
@@ -14,3 +14,4 @@ html, body, #app{
   /*background-color: #f6f6f6;*/
 }
 </style>
+<!--根组件，懂的都懂，直接无视-->

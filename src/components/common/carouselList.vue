@@ -17,7 +17,8 @@
             <el-button type="primary" @click="addFormVisible = false;addCarousel(form)">确 定</el-button>
           </div>
         </el-dialog>
-<!--批量删除功能，与后端交流有误，取消-->
+
+<!--批量删除功能，与后端交流有误，未实现-->
 <!--        <el-button class="button" type="danger" icon="el-icon-minus" @click="deleteFormVisible=true">批量删除</el-button>-->
 <!--        <el-dialog title="删除图片" :visible.sync="deleteFormVisible" class="dialog">-->
 <!--          <el-form :model="form" >-->

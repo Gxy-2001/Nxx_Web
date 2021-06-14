@@ -1,10 +1,12 @@
 <template>
     <div class="main-border">
+      <!--   el-menu   -->
         <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item index="1">上线的闲置</el-menu-item>
             <el-menu-item index="2">下架的闲置</el-menu-item>
         </el-menu>
-        <el-table v-if="this.mode == 1"
+      <!--   上线商品   -->
+        <el-table v-show="this.mode == 1"
                 :data="onlineGoods"
                 stripe
                 style="width: 100%;color: #5a5c61;">
@@ -42,6 +44,7 @@
                 </template>
             </el-table-column>
         </el-table>
+      <!--   下架商品  -->
         <el-table v-show="this.mode == 2"
                   :data="OfflineGoods"
                   stripe
@@ -80,6 +83,7 @@
                 </template>
             </el-table-column>
         </el-table>
+      <!--   翻页   -->
         <div class="block">
             <el-pagination
                     @current-change="handleCurrentChange"
@@ -109,6 +113,7 @@
             this.getOnlineGoods();
         },
         methods: {
+            //翻页
             handleCurrentChange(val) {
                 this.nowPage = val;
                 if(this.mode == 1){
@@ -118,6 +123,7 @@
                     this.getOfflineGoods();
                 }
             },
+            //显示上线还是下架商品
             handleSelect(val){
                 if(this.mode !== val){
                     this.mode = val;
@@ -131,6 +137,7 @@
                     }
                 }
             },
+          //下架商品
             makeOfflineGoods(i){
                 this.$api.updateGoods({
                     id: this.onlineGoods[i].id,
@@ -145,7 +152,8 @@
                     console.log(e)
                 })
             },
-            deleteGoods(i){
+          //永久删除商品
+          deleteGoods(i){
                 this.$api.updateGoods({
                     id: this.OfflineGoods[i].id,
                     status:0
@@ -160,6 +168,7 @@
                     console.log(e)
                 })
             },
+          //查询
             getOnlineGoods(){
                 this.$api.getGoods({
                     status:1,
@@ -176,6 +185,7 @@
                     console.log(e)
                 })
             },
+          //查询下架商品
             getOfflineGoods(){
                 this.$api.getGoods({
                     status:2,

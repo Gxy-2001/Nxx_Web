@@ -1,6 +1,6 @@
-<!--这个轮播图的麻烦之处在于 如何实现动态增删 和 图片自适应-->
 <template>
   <div>
+<!--ElementUI提供的轮播图-->
     <el-carousel :interval="3000" arrow="hover" indicator-position="outside" height="450px" >
 <!--      暂时方案。静态-->
 <!--      <el-carousel-item v-for="item in imgBox" :key="i">-->
@@ -26,15 +26,15 @@ export default {
       srcList:[],
       nowPage:1,
       carouselList:[],
-      imgBox:[
-        {id:0,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/1.png?versionId=CAEQIRiBgICRseeAzBciIGZiNmMwNjNmYWQ3NTQ5ZmM5MDBiZmMxYTU3YzMxY2Rj'},
-        {id:1,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/2.png?versionId=CAEQIRiBgMCIseeAzBciIDMyNDdjZDllNmU2ZDRkMDc5NjliZDQ2NmZlNjViYmUx',
-        },
-        {id:2,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/3.png?versionId=CAEQIRiBgMCRseeAzBciIGM4YjNjNzhmMThhZDQwMjU5NzUwY2Y4YWI0ODU4NjEz',
-        },
-        {id:3,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/4.png?versionId=CAEQIRiBgICJseeAzBciIDc5YTM5YThlZGViODRiMmY4NWM2OGQ4Mzc5ZDk0OGQz',
-        },
-      ]
+      // imgBox:[
+      //   {id:0,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/1.png?versionId=CAEQIRiBgICRseeAzBciIGZiNmMwNjNmYWQ3NTQ5ZmM5MDBiZmMxYTU3YzMxY2Rj'},
+      //   {id:1,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/2.png?versionId=CAEQIRiBgMCIseeAzBciIDMyNDdjZDllNmU2ZDRkMDc5NjliZDQ2NmZlNjViYmUx',
+      //   },
+      //   {id:2,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/3.png?versionId=CAEQIRiBgMCRseeAzBciIGM4YjNjNzhmMThhZDQwMjU5NzUwY2Y4YWI0ODU4NjEz',
+      //   },
+      //   {id:3,src:'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/4.png?versionId=CAEQIRiBgICJseeAzBciIDc5YTM5YThlZGViODRiMmY4NWM2OGQ4Mzc5ZDk0OGQz',
+      //   },
+      // ]
     };
   },
   created() {
