@@ -243,7 +243,7 @@ export default {
         if (!this.addressInfo.detailAddress) {
           this.$message.error('请选择地址！')
         } else {
-          this.$confirm('模拟支付宝支付，是否确认支付', '支付订单', {
+          this.$confirm('是否确认支付', '支付订单', {
             confirmButtonText: '支付',
             cancelButtonText: '取消',
             type: 'warning'
@@ -252,7 +252,7 @@ export default {
               id: orderInfo.id,
               orderStatus: orderStatus,
               paymentStatus: 1,
-              paymentWay: '支付宝',
+              paymentWay: '支付方式1',
             }).then(res => {
               if (res.status_code === 1) {
                 this.$message({
@@ -261,7 +261,7 @@ export default {
                 });
                 this.orderInfo.orderStatus = orderStatus;
                 this.orderInfo.paymentStatus = 1;
-                this.orderInfo.paymentWay = '支付宝';
+                this.orderInfo.paymentWay = '支付方式1';
                 this.orderInfo.paymentTime = res.data.paymentTime;
               }
             })

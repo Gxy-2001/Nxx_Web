@@ -92,7 +92,7 @@
 <!--                        <el-input aria-placeholder="" v-model="form.newUrl"></el-input>-->
 <!--                      </el-form-item>-->
 
-                      <el-upload
+                      <el-upload class="carousel_upLoad"
                           action="http://localhost:8090/file"
                           :on-preview="fileHandlePreview"
                           :on-remove="fileHandleRemove"
@@ -356,5 +356,9 @@
     }
     .dialog{
       width:60%;
+    }
+    .carousel_upLoad{
+      position: absolute;
+      left: 200px;
     }
 </style>
