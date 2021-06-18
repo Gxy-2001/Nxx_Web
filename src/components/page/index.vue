@@ -105,7 +105,7 @@
     import AppHead from '../common/AppHeader.vue';
     import AppBody from '../common/AppPageBody.vue'
     import AppFoot from '../common/AppFoot.vue'
-    import Carousel from './Carousel.vue'
+    import Carousel from '../common/Carousel.vue'
 
     export default {
         name: "index",
