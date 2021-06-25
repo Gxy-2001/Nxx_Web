@@ -22,7 +22,7 @@
       /*position: fixed;*/
       left: 0;
       right: 0;
-      background-color: #8EC5FC;
+      background-color: #f5f8f8;
       background-image: linear-gradient(0deg, #8EC5FC 0%, #E0C3FC 100%);
     }
     .main-content{

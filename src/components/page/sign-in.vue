@@ -15,7 +15,7 @@
                         <div class="el-icon-user-solid"></div>
                     </template>
                 </el-input>
-                <el-input placeholder="请输入手机号..." maxlength="11" v-model="userInfo.accountNumber" class="sign-in-input" clearable>
+                <el-input placeholder="请输入账号..." maxlength="11" v-model="userInfo.accountNumber" class="sign-in-input" clearable>
                     <template slot="prepend">
                         <div class="el-icon-phone"></div>
                     </template>

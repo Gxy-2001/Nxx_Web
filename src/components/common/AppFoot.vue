@@ -1,6 +1,6 @@
 <template>
     <div class="foot-container">
-        <div class="author">Nxx<a target="_blank" href="https://github.com">@Gxy</a></div>
+        <div class="author">Nxx<a target="_blank" href="https://github.com/Gxy-2001/NXX">@Gxy</a></div>
     </div>
 </template>
 
